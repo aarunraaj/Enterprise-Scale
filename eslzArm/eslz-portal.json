@@ -3801,7 +3801,6 @@
                                     "selectAll": true,
                                     "filter": true,
                                     "multiLine": true,
-                                    "defaultValue": "Yes (recommended)",
                                     "toolTip": "If 'Yes' is selected for Decommissioned, the Enforce-ALZ-Decomm initiative will be applied to the Decommissioned Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Decomm.html\">Enforce policies in the Decommissioned Landing Zone</a>.",
                                     "constraints": {
                                         "allowedValues": [
@@ -3820,7 +3819,7 @@
                                     "visible": true
                                 }
                             ],
-                            "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]"
+                            "visible": true
                         }
                     ]
 
