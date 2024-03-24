@@ -3777,7 +3777,7 @@
                                 "text": "You can optionally select the workloads to be deployed with this ALZ.",
                                 "uri": "https://aka.ms/alz/policies",
                                 "style": "Info"
-                            } 
+                            }
                         },
                         {
                             "name": "workloadselection",
@@ -3792,266 +3792,262 @@
                                         "uri": "https://aka.ms/alz/policies",
                                         "style": "Info"
                                     }
-                                },
-                                {
-                                    "name": "workloadlists",
-                                    "type": "Microsoft.Common.DropDown",
-                                    "label": "Select application landing zone by deploying additional accelerators along with this ALZ",
-                                    "selectAll": true,
-                                    "filter": true,
-                                    "multiLine": true,
-                                    "toolTip": "If 'Yes' is selected for Decommissioned, the Enforce-ALZ-Decomm initiative will be applied to the Decommissioned Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Decomm.html\">Enforce policies in the Decommissioned Landing Zone</a>.",
-                                    "constraints": {
-                                        "allowedValues": [
-                                            {
-                                                "label": "aks accelerator",
-                                                "value": "aks-accelerator",
-                                                "description":"Deploy Azure Kubernetes Service Accelerator with this ALZ"
-                                            },
-                                            {
-                                                "label": "app service accelerator",
-                                                "value": "app-service-accelerator",
-                                                "description":"Deploy App Service Accelerator with this ALZ"
-                                            },
-                                            {
-                                            "label": "No",
-                                            "value": "No"
-                                            }
-
-                                        ]
-                                    }
                                 }
                             ]
                         },
                         {
-                            "name": "aksnetwork",
-                            "type": "Microsoft.Common.TextBox",
-                            "label": "address space for cluster VNet",
-                            "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/23)",
-                            "defaultValue": "10.100.0.0/23",
-                            "visible": "[(equals(steps('Workloads').workloadselection, 'aks-accelerator'))]",
+                            "name": "workloadlists",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Select application landing zone by deploying additional accelerators along with this ALZ",
+                            "defaultValue": "No",
+                            "toolTip": "If 'Yes' is selected for Decommissioned, the Enforce-ALZ-Decomm initiative will be applied to the Decommissioned Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Decomm.html\">Enforce policies in the Decommissioned Landing Zone</a>.",
                             "constraints": {
-                                "required": true
+                                "allowedValues": [
+                                    {
+                                        "label": "aks accelerator",
+                                        "value": "aks-accelerator",
+                                        "description": "Deploy Azure Kubernetes Service Accelerator with this ALZ"
+                                    },
+                                    {
+                                        "label": "app service accelerator",
+                                        "value": "app-service-accelerator",
+                                        "description": "Deploy App Service Accelerator with this ALZ"
+                                    },
+                                    {
+                                        "label": "No",
+                                        "value": "No"
+                                    }
+                                ]
                             }
                         }
                     ]
-
                 },
                 {
-                    "name": "decommissionedSandboxZones",
-                    "label": "Decommissioned/Sandbox",
-                    "subLabel": {
-                        "preValidation": "",
-                        "postValidation": ""
-                    },
-                    "bladeTitle": "ALZ - Decommissioned and Sandbox Landing Zones Settings",
+                    "name": "aksnetwork",
+                    "type": "Microsoft.Common.TextBox",
+                    "label": "address space for cluster VNet",
+                    "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/23)",
+                    "defaultValue": "10.100.0.0/23",
+                    "visible": "[(equals(steps('Workloads').workloadselection, 'aks-accelerator'))]",
+                    "constraints": {
+                        "required": true
+                    }
+                },
+        {
+            "name": "decommissionedSandboxZones",
+            "label": "Decommissioned/Sandbox",
+            "subLabel": {
+                "preValidation": "",
+                "postValidation": ""
+            },
+            "bladeTitle": "ALZ - Decommissioned and Sandbox Landing Zones Settings",
+            "elements": [
+                {
+                    "name": "infoBox2",
+                    "type": "Microsoft.Common.InfoBox",
+                    "visible": true,
+                    "options": {
+                        "text": "You can optionally choose to enable the assignment of recommended policies for the Decommissioned and Sandbox landing zones that will enable policies according to best practices.",
+                        "uri": "https://aka.ms/alz/policies",
+                        "style": "Info"
+                    }
+                },
+                {
+                    "name": "decommSection",
+                    "type": "Microsoft.Common.Section",
+                    "label": "Decommissioned Management Group",
                     "elements": [
                         {
-                            "name": "infoBox2",
+                            "name": "decommSettingsInfo",
                             "type": "Microsoft.Common.InfoBox",
-                            "visible": true,
+                            "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]",
                             "options": {
-                                "text": "You can optionally choose to enable the assignment of recommended policies for the Decommissioned and Sandbox landing zones that will enable policies according to best practices.",
+                                "text": "The following policies will be enabled: <ul><li>Deny the deployment of new resources<li>Deploy an auto VM shutdown policy at UTC 00:00</ul>",
                                 "uri": "https://aka.ms/alz/policies",
                                 "style": "Info"
                             }
                         },
                         {
-                            "name": "decommSection",
-                            "type": "Microsoft.Common.Section",
-                            "label": "Decommissioned Management Group",
-                            "elements": [
-                                {
-                                    "name": "decommSettingsInfo",
-                                    "type": "Microsoft.Common.InfoBox",
-                                    "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]",
-                                    "options": {
-                                        "text": "The following policies will be enabled: <ul><li>Deny the deployment of new resources<li>Deploy an auto VM shutdown policy at UTC 00:00</ul>",
-                                        "uri": "https://aka.ms/alz/policies",
-                                        "style": "Info"
-                                    }
-                                },
-                                {
-                                    "name": "enableDecommissioned",
-                                    "type": "Microsoft.Common.OptionsGroup",
-                                    "label": "Enforce ALZ Recommended policy controls on the Decommissioned Management Group?",
-                                    "defaultValue": "Yes (recommended)",
-                                    "toolTip": "If 'Yes' is selected for Decommissioned, the Enforce-ALZ-Decomm initiative will be applied to the Decommissioned Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Decomm.html\">Enforce policies in the Decommissioned Landing Zone</a>.",
-                                    "constraints": {
-                                        "allowedValues": [
-                                            {
-                                                "label": "Yes (recommended)",
-                                                "value": "Yes"
-                                            },
-                                            {
-                                                "label": "Audit only",
-                                                "value": "Audit"
-                                            },
-                                            {
-                                                "label": "No",
-                                                "value": "No"
-                                            }
-                                        ]
+                            "name": "enableDecommissioned",
+                            "type": "Microsoft.Common.OptionsGroup",
+                            "label": "Enforce ALZ Recommended policy controls on the Decommissioned Management Group?",
+                            "defaultValue": "Yes (recommended)",
+                            "toolTip": "If 'Yes' is selected for Decommissioned, the Enforce-ALZ-Decomm initiative will be applied to the Decommissioned Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Decomm.html\">Enforce policies in the Decommissioned Landing Zone</a>.",
+                            "constraints": {
+                                "allowedValues": [
+                                    {
+                                        "label": "Yes (recommended)",
+                                        "value": "Yes"
                                     },
-                                    "visible": true
-                                }
-                            ],
-                            "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]"
+                                    {
+                                        "label": "Audit only",
+                                        "value": "Audit"
+                                    },
+                                    {
+                                        "label": "No",
+                                        "value": "No"
+                                    }
+                                ]
+                            },
+                            "visible": true
+                        }
+                    ],
+                    "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]"
+                },
+                {
+                    "name": "sandboxSection",
+                    "type": "Microsoft.Common.Section",
+                    "label": "Sandbox Management Group",
+                    "elements": [
+                        {
+                            "name": "sandboxSettingsInfo",
+                            "type": "Microsoft.Common.InfoBox",
+                            "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]",
+                            "options": {
+                                "text": "The following policies will be enabled: <ul><li>Deny vNET peering across subscriptions<li>Deny the deployment of vWAN/ER/VPN gateways</ul>",
+                                "uri": "https://aka.ms/alz/policies",
+                                "style": "Info"
+                            }
                         },
                         {
-                            "name": "sandboxSection",
-                            "type": "Microsoft.Common.Section",
-                            "label": "Sandbox Management Group",
-                            "elements": [
-                                {
-                                    "name": "sandboxSettingsInfo",
-                                    "type": "Microsoft.Common.InfoBox",
-                                    "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]",
-                                    "options": {
-                                        "text": "The following policies will be enabled: <ul><li>Deny vNET peering across subscriptions<li>Deny the deployment of vWAN/ER/VPN gateways</ul>",
-                                        "uri": "https://aka.ms/alz/policies",
-                                        "style": "Info"
-                                    }
-                                },
-                                {
-                                    "name": "enableSandbox",
-                                    "type": "Microsoft.Common.OptionsGroup",
-                                    "label": "Enforce ALZ recommended policy controls on the Sandbox Management Group?",
-                                    "defaultValue": "Yes (recommended)",
-                                    "toolTip": "If 'Yes' is selected for sandbox, the Enforce-ALZ-Sandbox initiative will be applied to the Sandbox Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Sandbox.html\">Enforce policies in the Sandbox Landing Zone</a>.",
-                                    "constraints": {
-                                        "allowedValues": [
-                                            {
-                                                "label": "Yes (recommended)",
-                                                "value": "Yes"
-                                            },
-                                            {
-                                                "label": "Audit only",
-                                                "value": "Audit"
-                                            },
-                                            {
-                                                "label": "No",
-                                                "value": "No"
-                                            }
-                                        ]
+                            "name": "enableSandbox",
+                            "type": "Microsoft.Common.OptionsGroup",
+                            "label": "Enforce ALZ recommended policy controls on the Sandbox Management Group?",
+                            "defaultValue": "Yes (recommended)",
+                            "toolTip": "If 'Yes' is selected for sandbox, the Enforce-ALZ-Sandbox initiative will be applied to the Sandbox Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Sandbox.html\">Enforce policies in the Sandbox Landing Zone</a>.",
+                            "constraints": {
+                                "allowedValues": [
+                                    {
+                                        "label": "Yes (recommended)",
+                                        "value": "Yes"
                                     },
-                                    "visible": true
-                                }
-                            ],
-                            "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]"
+                                    {
+                                        "label": "Audit only",
+                                        "value": "Audit"
+                                    },
+                                    {
+                                        "label": "No",
+                                        "value": "No"
+                                    }
+                                ]
+                            },
+                            "visible": true
                         }
-                    ]
+                    ],
+                    "visible": "[equals(steps('basics').cloudEnvironment.selection, 'AzureCloud')]"
                 }
             ]
-        },
-        "outputs": {
-            "parameters": {
-                "enterpriseScaleCompanyPrefix": "[steps('core').enterpriseScaleCompanyPrefix]",
-                "singlePlatformSubscriptionId": "[steps('core').singleSubscription.selector]",
-                "denyClassicResources": "[steps('core').denyClassicResources]",
-                "denyVMUnmanagedDisk": "[steps('core').denyVMUnmanagedDisk]",
-                "telemetryOptOut": "[steps('core').cuaSection.telemetryOptOut]",
-                "enforceKvGuardrailsPlat": "[steps('management').esPlatformMgmtGroup.enforceKvGuardrailsPlat]",
-                "enableLogAnalytics": "[steps('management').enableLogAnalytics]",
-                "enableChangeTracking": "[steps('management').enableChangeTracking]",
-                "enableUpdateMgmt": "[steps('management').enableUpdateMgmt]",
-                "enableVmInsights": "[steps('management').enableVmInsights]",
-                "retentionInDays": "[string(steps('management').retentionInDays)]",
-                "managementSubscriptionId": "[steps('management').esMgmtSubSection.esMgmtSub]",
-                "enableAsc": "[steps('management').enableAsc]",
-                "emailContactAsc": "[steps('management').emailContactAsc]",
-                "enableAscForServers": "[steps('management').enableAscForServers]",
-                "enableAscForServersVulnerabilityAssessments": "[steps('management').enableAscForServersVulnerabilityAssessments]",
-                "vulnerabilityAssessmentProvider": "[steps('management').vulnerabilityAssessmentProvider]",
-                "enableAscForOssDb": "[steps('management').enableAscForOssDb]",
-                "enableAscForCosmosDbs": "[steps('management').enableAscForCosmosDbs]",
-                "enableAscForAppServices": "[steps('management').enableAscForAppServices]",
-                "enableAscForStorage": "[steps('management').enableAscForStorage]",
-                "enableAscForSql": "[steps('management').enableAscForSql]",
-                "enableAscForSqlOnVm": "[steps('management').enableAscForSqlOnVm]",
-                "enableAscForKeyVault": "[steps('management').enableAscForKeyVault]",
-                "enableAscForArm": "[steps('management').enableAscForArm]",
-                "enableAscForApis": "[steps('management').enableAscForApis]",
-                "enableAscForCspm": "[steps('management').enableAscForCspm]",
-                "enableAscForDns": "[steps('management').enableAscForDns]",
-                "enableAscForContainers": "[steps('management').enableAscForContainers]",
-                "enableMDEndpoints": "[steps('management').enableMDEndpoints]",
-                "enableMonitorBaselines": "[steps('monitor').enableMonitorBaselines]",
-                "monitorAlertsResourceGroup": "[steps('monitor').monitorAlertsResourceGroup]",
-                "emailContactActionGroup": "[steps('monitor').emailContactActionGroup]",
-                "enableMonitorConnectivity": "[steps('monitor').enableMonitorConnectivity]",
-                "enableMonitorIdentity": "[steps('monitor').enableMonitorIdentity]",
-                "enableMonitorManagement": "[steps('monitor').enableMonitorManagement]",
-                "enableMonitorLandingZones": "[steps('monitor').enableMonitorLandingZones]",
-                "connectivitySubscriptionId": "[if(not(equals(steps('connectivity').esNwSubSection.esNwSub,steps('management').esMgmtSubSection.esMgmtSub)),steps('connectivity').esNwSubSection.esNwSub,'')]",
-                "addressPrefix": "[coalesce(steps('connectivity').esAddressHubVWAN, steps('connectivity').esAddressHubHS, '')]",
-                "connectivityLocation": "[steps('connectivity').connectivityLocation]",
-                "enableDdoS": "[steps('connectivity').enableDdoS]",
-                "enablePrivateDnsZones": "[steps('connectivity').enablePrivateDnsZones]",
-                "privateDnsZonesToDeploy": "[steps('connectivity').privateDnsZones]",
-                "enableVpnGw": "[steps('connectivity').enableVpnGw]",
-                "gwRegionalOrAz": "[steps('connectivity').gwRegionalOrAz]",
-                "enableVpnActiveActive": "[steps('connectivity').enableVpnActiveActive]",
-                "gwRegionalSku": "[coalesce(steps('connectivity').gwRegionalSku, steps('connectivity').esGwNoAzSku)]",
-                "gwAzSku": "[steps('connectivity').gwAzSku]",
-                "vpnGateWayScaleUnit": "[steps('connectivity').vpnGateWayScaleUnit]",
-                "subnetMaskForGw": "[steps('connectivity').subnetMaskForGw]",
-                "enableErGw": "[steps('connectivity').enableErGw]",
-                "erAzSku": "[steps('connectivity').erAzSku]",
-                "erRegionalSku": "[coalesce(steps('connectivity').erRegionalSku, steps('connectivity').esErNoAzSku)]",
-                "erRegionalOrAz": "[steps('connectivity').erRegionalOrAz]",
-                "expressRouteScaleUnit": "[steps('connectivity').expressRouteScaleUnit]",
-                "enableHub": "[steps('connectivity').enableHub]",
-                "enableAzFw": "[steps('connectivity').enableAzFw]",
-                "enableAzFwDnsProxy": "[if(equals(steps('connectivity').firewallSku, 'Basic'), 'No', steps('connectivity').enableAzFwDnsProxy)]",
-                "firewallSku": "[steps('connectivity').firewallSku]",
-                "firewallZones": "[steps('connectivity').firewallZones]",
-                "subnetMaskForAzFw": "[steps('connectivity').subnetMaskForAzFw]",
-                "subnetMaskForAzFwMgmt": "[steps('connectivity').subnetMaskForAzFwMgmt]",
-                "enablevWANRoutingIntent": "[steps('connectivity').enablevWANRoutingIntent]",
-                "internetTrafficRoutingPolicy": "[if(equals(steps('connectivity').vWANRoutingIntentforInternetTraffic, 'Yes'), 'true', 'false')]",
-                "privateTrafficRoutingPolicy": "[if(equals(steps('connectivity').vWANRoutingIntentforPrivateTraffic, 'Yes'), 'true', 'false')]",
-                "vWANHubRoutingPreference": "[steps('connectivity').vWANHubRoutingPreference]",
-                "vWANHubCapacity": "[steps('connectivity').vWANHubCapacity]",
-                "identitySubscriptionId": "[if(or(not(equals(steps('identity').esIdentitySubSection.esIdentitySub,steps('management').esMgmtSubSection.esMgmtSub)),not(equals(steps('identity').esIdentitySubSection.esIdentitySub,steps('connectivity').esNwSubSection.esNwSub))),steps('identity').esIdentitySubSection.esIdentitySub,'')]",
-                "denyMgmtPortsForIdentity": "[steps('identity').denyMgmtPortsForIdentity]",
-                "denySubnetWithoutNsgForIdentity": "[steps('identity').denySubnetWithoutNsgForIdentity]",
-                "denyPipForIdentity": "[steps('identity').denyPipForIdentity]",
-                "enableVmBackupForIdentity": "[steps('identity').enableVmBackupForIdentity]",
-                "identityAddressPrefix": "[steps('identity').identityAddressPrefix]",
-                "corpConnectedLzSubscriptionId": "[if(or(not(contains(steps('landingZones').corpSection.esCorpLzSub,steps('management').esMgmtSubSection.esMgmtSub)),not(contains(steps('landingZones').corpSection.esCorpLzSub,steps('connectivity').esNwSubSection.esNwSub))),steps('landingZones').corpSection.lzConnectedSubs,'')]",
-                "corpLzSubscriptionId": "[if(or(not(contains(steps('landingZones').corpSection.esCorpLzSub,steps('management').esMgmtSubSection.esMgmtSub)),not(contains(steps('landingZones').corpSection.esCorpLzSub,steps('connectivity').esNwSubSection.esNwSub))),steps('landingZones').corpSection.esCorpLzSub,'')]",
-                "onlineLzSubscriptionId": "[if(or(not(contains(steps('landingZones').onlineSection.esOnlineLzSub,steps('management').esMgmtSubSection.esMgmtSub)),not(contains(steps('landingZones').onlineSection.esOnlineLzSub,steps('connectivity').esNwSubSection.esNwSub))),steps('landingZones').onlineSection.esOnlineLzSub,'')]",
-                "enableLzDdoS": "[steps('landingZones').lzSection.enableLzDdoS]",
-                "denyPublicEndpoints": "[steps('landingZones').corpSection.denyPublicEndpoints]",
-                "denyPipOnNicForCorp": "[steps('landingZones').corpSection.denyPipOnNicForCorp]",
-                "enablePrivateDnsZonesForLzs": "[steps('landingZones').lzSection.enablePrivateDnsZonesForLzs]",
-                "enableEncryptionInTransit": "[steps('landingZones').lzSection.enableEncryptionInTransit]",
-                "enableVmMonitoring": "[steps('landingZones').lzSection.enableVmMonitoring]",
-                "enableVmssMonitoring": "[steps('landingZones').lzSection.enableVmssMonitoring]",
-                "enableVmHybridMonitoring": "[steps('landingZones').lzSection.enableVmHybridMonitoring]",
-                "enableAksPolicy": "[steps('landingZones').lzSection.enableAksPolicy]",
-                "denyAksPrivileged": "[steps('landingZones').lzSection.denyAksPrivileged]",
-                "denyAksPrivilegedEscalation": "[steps('landingZones').lzSection.denyAksPrivilegedEscalation]",
-                "denyHttpIngressForAks": "[steps('landingZones').lzSection.denyHttpIngressForAks]",
-                "enableVmBackup": "[steps('landingZones').lzSection.enableVmBackup]",
-                "denyMgmtPorts": "[steps('landingZones').lzSection.denyMgmtPorts]",
-                "denySubnetWithoutNsg": "[steps('landingZones').lzSection.denySubnetWithoutNsg]",
-                "denyIpForwarding": "[steps('landingZones').lzSection.denyIpForwarding]",
-                "enableSqlEncryption": "[steps('landingZones').lzSection.enableSqlEncryption]",
-                "enableSqlThreat": "[steps('landingZones').lzSection.enableSqlThreat]",
-                "enableSqlAudit": "[steps('landingZones').lzSection.enableSqlAudit]",
-                "enableStorageHttps": "[steps('landingZones').lzSection.enableStorageHttps]",
-                "enforceKvGuardrails": "[steps('landingZones').lzSection.enforceKvGuardrails]",
-                "denyHybridNetworking": "[steps('landingZones').corpSection.denyHybridNetworking]",
-                "auditPeDnsZones": "[steps('landingZones').corpSection.auditPeDnsZones]",
-                "auditAppGwWaf": "[steps('landingZones').lzSection.auditAppGwWaf]",
-                "enforceAcsb": "[steps('landingZones').lzSection.enforceAcsb]",
-                "enableDecommissioned": "[steps('decommissionedSandboxZones').decommSection.enableDecommissioned]",
-                "enableSandbox": "[steps('decommissionedSandboxZones').sandboxSection.enableSandbox]"
-            },
-            "kind": "Tenant",
-            "location": "[steps('basics').resourceScope.location.name]"
         }
-    }
+    ]
+},
+"outputs": {
+    "parameters": {
+        "enterpriseScaleCompanyPrefix": "[steps('core').enterpriseScaleCompanyPrefix]",
+        "singlePlatformSubscriptionId": "[steps('core').singleSubscription.selector]",
+        "denyClassicResources": "[steps('core').denyClassicResources]",
+        "denyVMUnmanagedDisk": "[steps('core').denyVMUnmanagedDisk]",
+        "telemetryOptOut": "[steps('core').cuaSection.telemetryOptOut]",
+        "enforceKvGuardrailsPlat": "[steps('management').esPlatformMgmtGroup.enforceKvGuardrailsPlat]",
+        "enableLogAnalytics": "[steps('management').enableLogAnalytics]",
+        "enableChangeTracking": "[steps('management').enableChangeTracking]",
+        "enableUpdateMgmt": "[steps('management').enableUpdateMgmt]",
+        "enableVmInsights": "[steps('management').enableVmInsights]",
+        "retentionInDays": "[string(steps('management').retentionInDays)]",
+        "managementSubscriptionId": "[steps('management').esMgmtSubSection.esMgmtSub]",
+        "enableAsc": "[steps('management').enableAsc]",
+        "emailContactAsc": "[steps('management').emailContactAsc]",
+        "enableAscForServers": "[steps('management').enableAscForServers]",
+        "enableAscForServersVulnerabilityAssessments": "[steps('management').enableAscForServersVulnerabilityAssessments]",
+        "vulnerabilityAssessmentProvider": "[steps('management').vulnerabilityAssessmentProvider]",
+        "enableAscForOssDb": "[steps('management').enableAscForOssDb]",
+        "enableAscForCosmosDbs": "[steps('management').enableAscForCosmosDbs]",
+        "enableAscForAppServices": "[steps('management').enableAscForAppServices]",
+        "enableAscForStorage": "[steps('management').enableAscForStorage]",
+        "enableAscForSql": "[steps('management').enableAscForSql]",
+        "enableAscForSqlOnVm": "[steps('management').enableAscForSqlOnVm]",
+        "enableAscForKeyVault": "[steps('management').enableAscForKeyVault]",
+        "enableAscForArm": "[steps('management').enableAscForArm]",
+        "enableAscForApis": "[steps('management').enableAscForApis]",
+        "enableAscForCspm": "[steps('management').enableAscForCspm]",
+        "enableAscForDns": "[steps('management').enableAscForDns]",
+        "enableAscForContainers": "[steps('management').enableAscForContainers]",
+        "enableMDEndpoints": "[steps('management').enableMDEndpoints]",
+        "enableMonitorBaselines": "[steps('monitor').enableMonitorBaselines]",
+        "monitorAlertsResourceGroup": "[steps('monitor').monitorAlertsResourceGroup]",
+        "emailContactActionGroup": "[steps('monitor').emailContactActionGroup]",
+        "enableMonitorConnectivity": "[steps('monitor').enableMonitorConnectivity]",
+        "enableMonitorIdentity": "[steps('monitor').enableMonitorIdentity]",
+        "enableMonitorManagement": "[steps('monitor').enableMonitorManagement]",
+        "enableMonitorLandingZones": "[steps('monitor').enableMonitorLandingZones]",
+        "connectivitySubscriptionId": "[if(not(equals(steps('connectivity').esNwSubSection.esNwSub,steps('management').esMgmtSubSection.esMgmtSub)),steps('connectivity').esNwSubSection.esNwSub,'')]",
+        "addressPrefix": "[coalesce(steps('connectivity').esAddressHubVWAN, steps('connectivity').esAddressHubHS, '')]",
+        "connectivityLocation": "[steps('connectivity').connectivityLocation]",
+        "enableDdoS": "[steps('connectivity').enableDdoS]",
+        "enablePrivateDnsZones": "[steps('connectivity').enablePrivateDnsZones]",
+        "privateDnsZonesToDeploy": "[steps('connectivity').privateDnsZones]",
+        "enableVpnGw": "[steps('connectivity').enableVpnGw]",
+        "gwRegionalOrAz": "[steps('connectivity').gwRegionalOrAz]",
+        "enableVpnActiveActive": "[steps('connectivity').enableVpnActiveActive]",
+        "gwRegionalSku": "[coalesce(steps('connectivity').gwRegionalSku, steps('connectivity').esGwNoAzSku)]",
+        "gwAzSku": "[steps('connectivity').gwAzSku]",
+        "vpnGateWayScaleUnit": "[steps('connectivity').vpnGateWayScaleUnit]",
+        "subnetMaskForGw": "[steps('connectivity').subnetMaskForGw]",
+        "enableErGw": "[steps('connectivity').enableErGw]",
+        "erAzSku": "[steps('connectivity').erAzSku]",
+        "erRegionalSku": "[coalesce(steps('connectivity').erRegionalSku, steps('connectivity').esErNoAzSku)]",
+        "erRegionalOrAz": "[steps('connectivity').erRegionalOrAz]",
+        "expressRouteScaleUnit": "[steps('connectivity').expressRouteScaleUnit]",
+        "enableHub": "[steps('connectivity').enableHub]",
+        "enableAzFw": "[steps('connectivity').enableAzFw]",
+        "enableAzFwDnsProxy": "[if(equals(steps('connectivity').firewallSku, 'Basic'), 'No', steps('connectivity').enableAzFwDnsProxy)]",
+        "firewallSku": "[steps('connectivity').firewallSku]",
+        "firewallZones": "[steps('connectivity').firewallZones]",
+        "subnetMaskForAzFw": "[steps('connectivity').subnetMaskForAzFw]",
+        "subnetMaskForAzFwMgmt": "[steps('connectivity').subnetMaskForAzFwMgmt]",
+        "enablevWANRoutingIntent": "[steps('connectivity').enablevWANRoutingIntent]",
+        "internetTrafficRoutingPolicy": "[if(equals(steps('connectivity').vWANRoutingIntentforInternetTraffic, 'Yes'), 'true', 'false')]",
+        "privateTrafficRoutingPolicy": "[if(equals(steps('connectivity').vWANRoutingIntentforPrivateTraffic, 'Yes'), 'true', 'false')]",
+        "vWANHubRoutingPreference": "[steps('connectivity').vWANHubRoutingPreference]",
+        "vWANHubCapacity": "[steps('connectivity').vWANHubCapacity]",
+        "identitySubscriptionId": "[if(or(not(equals(steps('identity').esIdentitySubSection.esIdentitySub,steps('management').esMgmtSubSection.esMgmtSub)),not(equals(steps('identity').esIdentitySubSection.esIdentitySub,steps('connectivity').esNwSubSection.esNwSub))),steps('identity').esIdentitySubSection.esIdentitySub,'')]",
+        "denyMgmtPortsForIdentity": "[steps('identity').denyMgmtPortsForIdentity]",
+        "denySubnetWithoutNsgForIdentity": "[steps('identity').denySubnetWithoutNsgForIdentity]",
+        "denyPipForIdentity": "[steps('identity').denyPipForIdentity]",
+        "enableVmBackupForIdentity": "[steps('identity').enableVmBackupForIdentity]",
+        "identityAddressPrefix": "[steps('identity').identityAddressPrefix]",
+        "corpConnectedLzSubscriptionId": "[if(or(not(contains(steps('landingZones').corpSection.esCorpLzSub,steps('management').esMgmtSubSection.esMgmtSub)),not(contains(steps('landingZones').corpSection.esCorpLzSub,steps('connectivity').esNwSubSection.esNwSub))),steps('landingZones').corpSection.lzConnectedSubs,'')]",
+        "corpLzSubscriptionId": "[if(or(not(contains(steps('landingZones').corpSection.esCorpLzSub,steps('management').esMgmtSubSection.esMgmtSub)),not(contains(steps('landingZones').corpSection.esCorpLzSub,steps('connectivity').esNwSubSection.esNwSub))),steps('landingZones').corpSection.esCorpLzSub,'')]",
+        "onlineLzSubscriptionId": "[if(or(not(contains(steps('landingZones').onlineSection.esOnlineLzSub,steps('management').esMgmtSubSection.esMgmtSub)),not(contains(steps('landingZones').onlineSection.esOnlineLzSub,steps('connectivity').esNwSubSection.esNwSub))),steps('landingZones').onlineSection.esOnlineLzSub,'')]",
+        "enableLzDdoS": "[steps('landingZones').lzSection.enableLzDdoS]",
+        "denyPublicEndpoints": "[steps('landingZones').corpSection.denyPublicEndpoints]",
+        "denyPipOnNicForCorp": "[steps('landingZones').corpSection.denyPipOnNicForCorp]",
+        "enablePrivateDnsZonesForLzs": "[steps('landingZones').lzSection.enablePrivateDnsZonesForLzs]",
+        "enableEncryptionInTransit": "[steps('landingZones').lzSection.enableEncryptionInTransit]",
+        "enableVmMonitoring": "[steps('landingZones').lzSection.enableVmMonitoring]",
+        "enableVmssMonitoring": "[steps('landingZones').lzSection.enableVmssMonitoring]",
+        "enableVmHybridMonitoring": "[steps('landingZones').lzSection.enableVmHybridMonitoring]",
+        "enableAksPolicy": "[steps('landingZones').lzSection.enableAksPolicy]",
+        "denyAksPrivileged": "[steps('landingZones').lzSection.denyAksPrivileged]",
+        "denyAksPrivilegedEscalation": "[steps('landingZones').lzSection.denyAksPrivilegedEscalation]",
+        "denyHttpIngressForAks": "[steps('landingZones').lzSection.denyHttpIngressForAks]",
+        "enableVmBackup": "[steps('landingZones').lzSection.enableVmBackup]",
+        "denyMgmtPorts": "[steps('landingZones').lzSection.denyMgmtPorts]",
+        "denySubnetWithoutNsg": "[steps('landingZones').lzSection.denySubnetWithoutNsg]",
+        "denyIpForwarding": "[steps('landingZones').lzSection.denyIpForwarding]",
+        "enableSqlEncryption": "[steps('landingZones').lzSection.enableSqlEncryption]",
+        "enableSqlThreat": "[steps('landingZones').lzSection.enableSqlThreat]",
+        "enableSqlAudit": "[steps('landingZones').lzSection.enableSqlAudit]",
+        "enableStorageHttps": "[steps('landingZones').lzSection.enableStorageHttps]",
+        "enforceKvGuardrails": "[steps('landingZones').lzSection.enforceKvGuardrails]",
+        "denyHybridNetworking": "[steps('landingZones').corpSection.denyHybridNetworking]",
+        "auditPeDnsZones": "[steps('landingZones').corpSection.auditPeDnsZones]",
+        "auditAppGwWaf": "[steps('landingZones').lzSection.auditAppGwWaf]",
+        "enforceAcsb": "[steps('landingZones').lzSection.enforceAcsb]",
+        "enableDecommissioned": "[steps('decommissionedSandboxZones').decommSection.enableDecommissioned]",
+        "enableSandbox": "[steps('decommissionedSandboxZones').sandboxSection.enableSandbox]"
+    },
+    "kind": "Tenant",
+    "location": "[steps('basics').resourceScope.location.name]"
+}
+}
 }
