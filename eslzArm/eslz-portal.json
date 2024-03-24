@@ -3797,7 +3797,6 @@
                                     "name": "workloadlists",
                                     "type": "Microsoft.Common.DropDown",
                                     "label": "Select application landing zone by deploying additional accelerators along with this ALZ",
-/*                                    "multiselect": true,*/
                                     "selectAll": true,
                                     "filter": true,
                                     "multiLine": true,
@@ -3823,8 +3822,7 @@
                                     },
                                     "visible": true
                                 }
-                            ],
-                            "visible": true
+                            ]
                         },
                         {
                             "name": "aksnetwork",
