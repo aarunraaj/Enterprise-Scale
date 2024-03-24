@@ -3820,6 +3820,17 @@
                                 }
                             ],
                             "visible": true
+                        },
+                        {
+                            "name": "aksnetwork",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "address space for cluster VNet",
+                            "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/23)",
+                            "defaultValue": "10.100.0.0/23",
+                            "visible": "[(equals(steps('workloadselection').workloadlists, 'aks-accelerator'))]",
+                            "constraints": {
+                                "required": true
+                            }
                         }
                     ]
 
