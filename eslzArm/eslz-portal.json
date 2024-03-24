@@ -3826,7 +3826,7 @@
                             "label": "address space for cluster VNet",
                             "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/23)",
                             "defaultValue": "10.100.0.0/23",
-                            "visible": "[and(not(equals(steps('Workloads').workloadlists, 'No')), not(equals(steps('workloads').workloadlists, 'app-service-accelerator')))]",
+                            "visible": "[and((equals(steps('Workloads').workloadlists, 'aks-accelerator')), not(equals(steps('workloads').workloadlists, 'app-service-accelerator')))]",
                             "constraints": {
                                 "required": true
                             }
