@@ -3797,7 +3797,7 @@
                                     "name": "workloadlists",
                                     "type": "Microsoft.Common.DropDown",
                                     "label": "Select application landing zone by deploying additional accelerators along with this ALZ",
-                                    "multiselect": true,
+/*                                    "multiselect": true,*/
                                     "selectAll": true,
                                     "filter": true,
                                     "multiLine": true,
@@ -3813,7 +3813,12 @@
                                                 "label": "app service accelerator",
                                                 "value": "app-service-accelerator",
                                                 "description":"Deploy App Service Accelerator with this ALZ"
+                                            },
+                                            {
+                                            "label": "No",
+                                            "value": "No"
                                             }
+
                                         ]
                                     },
                                     "visible": true
