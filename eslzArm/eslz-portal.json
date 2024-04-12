@@ -76,7 +76,7 @@
                                 "method": "POST",
                                 "path": "providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
                                 "body": {
-                                    "query": "resources | where type =~ 'microsoft.network/virtualnetworks'| where name == 'fw-vnet' | project label=tostring(name),description=name, value=id"
+                                    "query": "resources | where type =~ 'microsoft.network/virtualnetworks'| project label=tostring(name),description=name, value=id"
                                 }
                             }
                         },
@@ -4083,11 +4083,17 @@
                                             }
                                         },
                                         {
-                                            "name": "deployHub",
-                                            "type": "Microsoft.Common.OptionsGroup",
+                                            "name": "selector",
+                                            "type": "Microsoft.Common.DropDown",
+                                            "label": "Platform subscription",
+                                            "defaultValue": "[parse('[]')]",
+                                            "toolTip": "",
+                                            "multiselect": false,
+                                            "selectAll": false,
+                                            "filter": true,
+                                            "filterPlaceholder": "Filter subscriptions...",
+                                            "multiLine": true,
                                             "visible": true,
-                                            "label": "Deploy a new Hub, or use an existing one?",
-                                            "defaultValue": "useExisting",
                                             "constraints": {
                                                 "allowedValues": "[steps('basics').getHubvnet.data]",
                                                 "required": true
