@@ -76,7 +76,7 @@
                                 "method": "POST",
                                 "path": "providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
                                 "body": {
-                                    "query": "Resources | where type =~ 'Microsoft.Storage/storageAccounts' | where name == 'demoarselvarsa' | project label=tostring(name),description=name, value=id"
+                                    "query": "Resources | where type =~ 'Microsoft.Storage/storageAccounts' | project label=tostring(name),description=name, value=id"
                                 }
                             }
                         },
