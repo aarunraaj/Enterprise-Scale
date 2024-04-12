@@ -76,7 +76,7 @@
                                 "method": "POST",
                                 "path": "providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
                                 "body": {
-                                    "query": "resources | where type =~ 'microsoft.network/virtualnetworks'| where name == 'fw-vnet' | where subscriptionId == 'ec226e17-eb8c-4349-bdf6-2fc296c193cd'| project label=tostring(name),description=name, value=id"
+                                    "query": "resources | where type =~ 'microsoft.network/virtualnetworks'| where name == 'fw-vnet' | project label=tostring(name),description=name, value=id"
                                 }
                             }
                         },
