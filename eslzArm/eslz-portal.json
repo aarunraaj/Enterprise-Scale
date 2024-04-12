@@ -3826,7 +3826,7 @@
                             "label": "address space for cluster VNet",
                             "toolTip": "Provide address prefix in CIDR notation (e.g 10.100.0.0/23)",
                             "defaultValue": "10.100.0.0/23",
-                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'aks-accelerator')]",
+                            "visible": "[equals(steps('workloads').workloadlists, 'aks-accelerator')]",
                             "constraints": {
                                 "required": true
                             }
@@ -3882,7 +3882,7 @@
                                 ]
                             },
                             "infoMessages": [],
-                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
+                            "visible": "[equals(steps('workloads').workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "appSvcPlanSection",
@@ -3892,7 +3892,7 @@
                                 {
                                     "name": "scenarioSelector",
                                     "type": "Microsoft.Common.TextBlock",
-                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]",
+                                    "visible": true,
                                     "options": {
                                         "text": "You can host your web applications in App Service Environment v3 (isolated hosting) or in an App Service Plan (multitenant hosting)",
                                         "link": {
@@ -3904,7 +3904,7 @@
                                 {
                                     "name": "deployAseV3",
                                     "type": "Microsoft.Common.OptionsGroup",
-                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]",
+                                    "visible": true,
                                     "label": "Deploy Isolated ASEv3?",
                                     "defaultValue": "No",
                                     "constraints": {
@@ -3923,7 +3923,7 @@
                                 {
                                     "name": "appSvcPlanSettings",
                                     "type": "Microsoft.Common.TextBlock",
-                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]",
+                                    "visible": true,
                                     "options": {
                                         "text": "Select one of the predefined SKUs for your App Service Plan, and the desired underlying OS (Linux or Windows). If you wish to deploy a Zone Redundant App Service, select one of the SKUs with the suffix _AZ.",
                                         "link": {
@@ -3982,7 +3982,11 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
+<<<<<<< HEAD
                                     "visible": "[and (equals(steps('environmentName').appSvcPlanSection.deployAseV3, false) (equals(steps(workloads).workloadselection.workloadlists, 'app-service-accelerator')))]"
+=======
+                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, false)]"
+>>>>>>> parent of 1238e7a5 (Update eslz-portal.json)
                                 },
                                 {
                                     "name": "webAppPlanSkuAse",
@@ -4022,7 +4026,11 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
+<<<<<<< HEAD
                                     "visible": "[and (equals(steps('environmentName').appSvcPlanSection.deployAseV3, true) (equals(steps(workloads).workloadselection.workloadlists, 'app-service-accelerator')))]]"
+=======
+                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, true)]"
+>>>>>>> parent of 1238e7a5 (Update eslz-portal.json)
                                 },
                                 {
                                     "name": "webAppBaseOs",
