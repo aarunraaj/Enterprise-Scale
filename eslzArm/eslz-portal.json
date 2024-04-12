@@ -4608,7 +4608,7 @@
                 "workloads": "[steps('workloads').workloadselection.workloadlists]",
                 "workloadName": "[steps('workloads').workloadName]",
                 
-                "location": "[steps('workloads').location]",
+                "location": "[steps('workloads').getLocations]",
                 "environmentName": "[steps('workloads').appenvironmentName]",
                 "vnetSpokeAddressSpace": "[steps('networking').vnetSpokeAddressSpace]",
                 "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('networking').subnetSpokeAppSvcAddressSpaceAse , steps('networking').subnetSpokeAppSvcAddressSpace )]",
