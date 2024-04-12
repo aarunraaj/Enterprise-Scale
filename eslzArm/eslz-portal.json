@@ -4086,10 +4086,10 @@
                                         "toolTip": "",
                                         "multiselect": false,
                                         "selectAll": false,
-                                        "filter": false,
+                                        "filter": true,
                                         "filterPlaceholder": "Filter subscriptions...",
-                                        "multiLine": false,
-                                        "visible": false,
+                                        "multiLine": true,
+                                        "visible": true,
                                         "constraints": {
                                             "allowedValues": "[steps('basics').getHubvnet.data]",
                                             "required": true
