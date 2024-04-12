@@ -4078,78 +4078,8 @@
                                     "visible": true
                                 }
                             ]
-                        },
-                        {
-                            "name": "networking",
-                            "label": "Network settings",
-                            "elements": [
-                                {
-                                    "name": "sectionHubSelector",
-                                    "type": "Microsoft.Common.Section",
-                                    "label": "Create a new Hub or use an existing one?",
-                                    "elements": [
-                                        {
-                                            "name": "textHubSelector",
-                                            "type": "Microsoft.Common.TextBlock",
-                                            "visible": true,
-                                            "options": {
-                                                "text": "Do you want to deploy a new Hub (with all the necessary resources, i.e. Virtual Network, Azure Firewall, Azure Bastion etc), or do you prefer use an existing one? The existing hub must be in the same region, and have Azure Firewall, and Azure Bastion deployed in it.",
-                                                "link": {
-                                                    "label": "More info for the Hub resources, at the Architecture Diagram",
-                                                    "uri": "https://github.com/thotheod/appservice-landing-zone-accelerator/tree/main/scenarios/secure-baseline-multitenant#architecture"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "name": "deployHub",
-                                            "type": "Microsoft.Common.OptionsGroup",
-                                            "visible": true,
-                                            "label": "Deploy a new Hub, or use an existing one?",
-                                            "defaultValue": "New",
-                                            "constraints": {
-                                                "allowedValues": [
-                                                    {
-                                                        "label": "New",
-                                                        "value": "deployNew"
-                                                    },
-                                                    {
-                                                        "label": "Existing",
-                                                        "value": "useExisting"
-                                                    }
-                                                ]
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "getHubvnet",
-                                    "type": "Microsoft.Solutions.ArmApiControl",
-                                    "request": {
-                                        "method": "POST",
-                                        "path": "providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
-                                        "body": {
-                                            "query": "Resources | where type =~ 'microsoft.network/virtualnetworks'| project label=tostring(name),description=name, value=id"
-                                        }
-                                    }
-                                },
-                                {
-                                    "name": "vnetHubResourceId",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Hub Vnet Resource Id",
-                                    "subLabel": "",
-                                    "defaultValue": "",
-                                    "toolTip": "Default is empty. If empty, then a new hub will be created. If given, no new hub will be created and we create the  peering between spoke and and existing hub vnet",
-                                    "constraints": {
-                                        "allowedValues": "[steps('workloads').networking.getHubvnet.data]",
-                                        "required": true
-                                    },
-                                    "infoMessages": [],
-                                    "visible": "[equals(steps('workloads').networking.sectionHubSelector.deployHub, 'useExisting')]"
-                                }
-                            ]
                         }
                     ]
-                    
                 },
                 {
                     "name": "decommissionedSandboxZones",
