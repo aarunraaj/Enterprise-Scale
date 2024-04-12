@@ -3982,7 +3982,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": "[equals(steps('environmentName').appSvcPlanSection.deployAseV3, false)]"
+                                    "visible": "[and (equals(steps('environmentName').appSvcPlanSection.deployAseV3, false) (equals(steps(workloads).workloadselection.workloadlists, 'app-service-accelerator')))]"
                                 },
                                 {
                                     "name": "webAppPlanSkuAse",
@@ -4022,7 +4022,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": "[equals(steps('environmentName').appSvcPlanSection.deployAseV3, true)]"
+                                    "visible": "[and (equals(steps('environmentName').appSvcPlanSection.deployAseV3, true) (equals(steps(workloads).workloadselection.workloadlists, 'app-service-accelerator')))]]"
                                 },
                                 {
                                     "name": "webAppBaseOs",
