@@ -4062,43 +4062,308 @@
                             ]
                         },
                         {
-                        "name": "networking",
-                        "label": "network settings",
-                        "elements": [
-                            {
-                                "name": "hubselector",
-                                "type": "Microsoft.Common.Option",
-                                "Label": "Hub Network",
-                                "elements": [
-                                    {
-                                        "name": "singleSubText",
-                                        "type": "Microsoft.Common.TextBlock",
-                                        "visible": true,
-                                        "options": {
-                                            "text": "Select a single subscription that will be used for all platform resources. This includes resources relating to platform management, security, governance, automation, connectivity, and identity."
+                            "name": "networking",
+                            "label": "Network settings",
+                            "elements": [
+                                {
+                                    "name": "sectionHubSelector",
+                                    "type": "Microsoft.Common.Section",
+                                    "label": "Create a new Hub or use an existing one?",
+                                    "elements": [
+                                        {
+                                            "name": "textHubSelector",
+                                            "type": "Microsoft.Common.TextBlock",
+                                            "visible": true,
+                                            "options": {
+                                                "text": "Do you want to deploy a new Hub (with all the necessary resources, i.e. Virtual Network, Azure Firewall, Azure Bastion etc), or do you prefer use an existing one? The existing hub must be in the same region, and have Azure Firewall, and Azure Bastion deployed in it.",
+                                                "link": {
+                                                    "label": "More info for the Hub resources, at the Architecture Diagram",
+                                                    "uri": "https://github.com/thotheod/appservice-landing-zone-accelerator/tree/main/scenarios/secure-baseline-multitenant#architecture"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "deployHub",
+                                            "type": "Microsoft.Common.OptionsGroup",
+                                            "visible": true,
+                                            "label": "Deploy a new Hub, or use an existing one?",
+                                            "defaultValue": "useExisting",
+                                            "constraints": {
+                                                "allowedValues": "[steps('basics').getHubvnet.data]",
+                                                "required": true
+                                            }
                                         }
+                                    ]
+                                },
+                                {
+                                    "name": "sectionHubNew",
+                                    "type": "Microsoft.Common.Section",
+                                    "label": "CIDR Settings for new Hub network and subnets",
+                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'deployNew')]",
+                                    "elements": [
+                                        {
+                                            "name": "textHubNew",
+                                            "type": "Microsoft.Common.TextBlock",
+                                            "visible": true,
+                                            "options": {
+                                                "text": "You can accept the default address spaces, as shown below, or you can use your own.",
+                                                "link": {
+                                                    "label": "What address ranges can I use in my Virtual Networks?",
+                                                    "uri": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-faq#what-address-ranges-can-i-use-in-my-vnets"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "vnetHubAddressSpace",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Hub Virtual Network Address Space",
+                                    "subLabel": "",
+                                    "defaultValue": "10.242.0.0/20",
+                                    "toolTip": "CIDR of the HUB vnet i.e. 192.168.0.0/24 - optional if you want to use an existing hub vnet (vnetHubResourceId)",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(1[0-9]|2[0-4]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [10,24]."
+                                            }
+                                        ]
                                     },
-                                    {
-                                        "name": "selector",
-                                        "type": "Microsoft.Common.DropDown",
-                                        "label": "Platform subscription",
-                                        "defaultValue": "[parse('[]')]",
-                                        "toolTip": "",
-                                        "multiselect": false,
-                                        "selectAll": false,
-                                        "filter": true,
-                                        "filterPlaceholder": "Filter subscriptions...",
-                                        "multiLine": true,
-                                        "visible": true,
-                                        "constraints": {
-                                            "allowedValues": "[steps('basics').getHubvnet.data]",
-                                            "required": true
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'deployNew')]"
+                                },
+                                {
+                                    "name": "subnetHubFirewallAddressSpace",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Hub Subnet CIDR for Azure Firewall",
+                                    "subLabel": "",
+                                    "defaultValue": "10.242.0.0/26",
+                                    "toolTip": "CIDR of the subnet hosting the azure Firewall - optional if you want to use an existing hub vnet (vnetHubResourceId)",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                            }
+                                        ]
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'deployNew')]"
+                                },
+                                {
+                                    "name": "subnetHubFirewallManagementAddressSpace",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Azure Firewall Management Subnet Address Prefix (azFW Basic)",
+                                    "subLabel": "",
+                                    "defaultValue": "10.242.0.64/26",
+                                    "toolTip": "CIDR to use for the Azure Firewall Management subnet  (Azure Firewall Basic). Optional if you want to use an existing hub vnet (vnetHubResourceId)",
+                                    "constraints": {
+                                        "required": true,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                            }
+                                        ]
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'deployNew')]"
+                                },
+                                {
+                                    "name": "subnetHubBastionAddressSpace",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Hub Subnet CIDR for Bastion Service",
+                                    "subLabel": "",
+                                    "defaultValue": "10.242.0.128/26",
+                                    "toolTip": "CIDR of the subnet hosting the Bastion Service - optional if you want to use an existing hub vnet (vnetHubResourceId)",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                            }
+                                        ]
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'deployNew')]"
+                                },
+                                {
+                                    "name": "sectionHubExisting",
+                                    "type": "Microsoft.Common.Section",
+                                    "label": "Information for the existing Hub resources",
+                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'useExisting')]",
+                                    "elements": []
+                                },
+                                {
+                                    "name": "vnetHubResourceId",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Hub Vnet Resource Id",
+                                    "subLabel": "",
+                                    "defaultValue": "",
+                                    "toolTip": "Default is empty. If empty, then a new hub will be created. If given, no new hub will be created and we create the  peering between spoke and and existing hub vnet",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'useExisting')]"
+                                },
+                                {
+                                    "name": "firewallInternalIp",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Firewall Internal IP",
+                                    "subLabel": "",
+                                    "defaultValue": "",
+                                    "toolTip": "Internal IP of the Azure firewall deployed in Hub. Used for creating UDR to route all vnet egress traffic through Firewall. If empty no UDR",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'useExisting')]"
+                                },
+                                {
+                                    "name": "sectionSpoke",
+                                    "type": "Microsoft.Common.Section",
+                                    "label": "CIDR Settings for the Spoke network and subnets",
+                                    "visible": true,
+                                    "elements": [
+                                        {
+                                            "name": "textSpoke",
+                                            "type": "Microsoft.Common.TextBlock",
+                                            "visible": true,
+                                            "options": {
+                                                "text": "You can accept the default address spaces, as shown below, or you can use your own.",
+                                                "link": {
+                                                    "label": "What address ranges can I use in my Virtual Networks?",
+                                                    "uri": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-faq#what-address-ranges-can-i-use-in-my-vnets"
+                                                }
+                                            }
                                         }
-                                    }
-                                ]
-                            }
-
-                        ]
+                                    ]
+                                },
+                                {
+                                    "name": "vnetSpokeAddressSpace",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Spoke Virtual Network Address Space",
+                                    "subLabel": "",
+                                    "defaultValue": "10.240.0.0/20",
+                                    "toolTip": "CIDR of the SPOKE vnet i.e. 192.168.0.0/24",
+                                    "constraints": {
+                                        "required": true,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(1[0-9]|2[0-4]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [10,24]."
+                                            }
+                                        ]
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                },
+                                {
+                                    "name": "subnetSpokeAppSvcAddressSpaceAse",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Spoke Subnet CIDR for Azure App Service",
+                                    "subLabel": "",
+                                    "defaultValue": "10.240.0.0/24",
+                                    "toolTip": "CIDR of the subnet that will hold the app services plan. Use a /24 network space if you wish to deploy ASEv3, otherwise use a /26 for multi tenant app service plan.",
+                                    "constraints": {
+                                        "required": true,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                            }
+                                        ]
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, true)]"
+                                },
+                                {
+                                    "name": "subnetSpokeAppSvcAddressSpace",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Spoke Subnet CIDR for Azure App Service",
+                                    "subLabel": "",
+                                    "defaultValue": "10.240.0.0/26",
+                                    "toolTip": "CIDR of the subnet that will hold the app services plan. Use a /24 network space if you wish to deploy ASEv3, otherwise use a /26 for multi tenant app service plan.",
+                                    "constraints": {
+                                        "required": true,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                            }
+                                        ]
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, false)]"
+                                },
+                                {
+                                    "name": "subnetSpokeDevOpsAddressSpace",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Spoke Subnet CIDR for Dev Ops agent (VM)",
+                                    "subLabel": "",
+                                    "defaultValue": "10.240.10.128/26",
+                                    "toolTip": "CIDR of the subnet that will hold devOps agents etc ",
+                                    "constraints": {
+                                        "required": true,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                            }
+                                        ]
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                },
+                                {
+                                    "name": "subnetSpokePrivateEndpointAddressSpace",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Spoke Subnet CIDR for Azure Private Endpoints",
+                                    "subLabel": "",
+                                    "defaultValue": "10.240.11.0/24",
+                                    "toolTip": "CIDR of the subnet that will hold the private endpoints of the supporting services",
+                                    "constraints": {
+                                        "required": true,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": [
+                                            {
+                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                            }
+                                        ]
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                }
+                            ]
                         }
                     ]
                 },
