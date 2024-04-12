@@ -4243,10 +4243,8 @@
                             "defaultValue": "",
                             "toolTip": "Default is empty. If empty, then a new hub will be created. If given, no new hub will be created and we create the  peering between spoke and and existing hub vnet",
                             "constraints": {
-                                "required": false,
-                                "regex": "",
-                                "validationMessage": "",
-                                "validations": []
+                                "allowedValues": "[steps('basics').getSubscriptions.data]",
+                                "required": true
                             },
                             "infoMessages": [],
                             "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'useExisting')]"
@@ -4610,14 +4608,14 @@
                 "workloads": "[steps('workloads').workloadselection.workloadlists]",
                 "workloadName": "[steps('basics').workloadName]",
                 
-                "location": "[steps('extra').location]",
+                "location": "[steps('exworkloads').location]",
                 "environmentName": "[steps('workloads').appenvironmentName]",
                 "vnetSpokeAddressSpace": "[steps('networking').vnetSpokeAddressSpace]",
                 "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('basics').appSvcPlanSection.deployAseV3, true), steps('networking').subnetSpokeAppSvcAddressSpaceAse , steps('networking').subnetSpokeAppSvcAddressSpace )]",
                 "subnetSpokeDevOpsAddressSpace": "[steps('networking').subnetSpokeDevOpsAddressSpace]",
                 "subnetSpokePrivateEndpointAddressSpace": "[steps('networking').subnetSpokePrivateEndpointAddressSpace]",
                 "numericSuffix": "[steps('extra').numericSuffix]",
-                "vnetHubResourceId": "[steps('Workloads').appenvironmentName.hubVnetselection]"
+                "vnetHubResourceId": "[steps('networking').hubVnetselection]"
             },
             "kind": "Tenant",
             "location": "[steps('basics').resourceScope.location.name]"
