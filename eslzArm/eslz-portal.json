@@ -3792,33 +3792,33 @@
                                         "uri": "https://aka.ms/alz/policies",
                                         "style": "Info"
                                     }
+                                },
+                                {
+                                    "name": "workloadlists",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Select application landing zone by deploying additional accelerators along with this ALZ",
+                                    "defaultValue": "No",
+                                    "toolTip": "If 'Yes' is selected for Decommissioned, the Enforce-ALZ-Decomm initiative will be applied to the Decommissioned Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Decomm.html\">Enforce policies in the Decommissioned Landing Zone</a>.",
+                                    "constraints": {
+                                        "allowedValues": [
+                                            {
+                                                "label": "aks accelerator",
+                                                "value": "aks-accelerator",
+                                                "description": "Deploy Azure Kubernetes Service Accelerator with this ALZ"
+                                            },
+                                            {
+                                                "label": "app service accelerator",
+                                                "value": "app-service-accelerator",
+                                                "description": "Deploy App Service Accelerator with this ALZ"
+                                            },
+                                            {
+                                                "label": "No",
+                                                "value": "No"
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
-                        },
-                        {
-                            "name": "workloadlists",
-                            "type": "Microsoft.Common.DropDown",
-                            "label": "Select application landing zone by deploying additional accelerators along with this ALZ",
-                            "defaultValue": "No",
-                            "toolTip": "If 'Yes' is selected for Decommissioned, the Enforce-ALZ-Decomm initiative will be applied to the Decommissioned Management Group.<br>Uses the custom initiative <a href=\"https://www.azadvertizer.net/azpolicyinitiativesadvertizer/Enforce-ALZ-Decomm.html\">Enforce policies in the Decommissioned Landing Zone</a>.",
-                            "constraints": {
-                                "allowedValues": [
-                                    {
-                                        "label": "aks accelerator",
-                                        "value": "aks-accelerator",
-                                        "description": "Deploy Azure Kubernetes Service Accelerator with this ALZ"
-                                    },
-                                    {
-                                        "label": "app service accelerator",
-                                        "value": "app-service-accelerator",
-                                        "description": "Deploy App Service Accelerator with this ALZ"
-                                    },
-                                    {
-                                        "label": "No",
-                                        "value": "No"
-                                    }
-                                ]
-                            }
                         },
                         {
                             "name": "aksnetwork",
@@ -4264,7 +4264,7 @@
         "enforceAcsb": "[steps('landingZones').lzSection.enforceAcsb]",
         "enableDecommissioned": "[steps('decommissionedSandboxZones').decommSection.enableDecommissioned]",
         "enableSandbox": "[steps('decommissionedSandboxZones').sandboxSection.enableSandbox]",
-        "workloads": "[steps('workloads').workloadselection.workloadlists]"
+        "workloads": "[steps('workloads').workloadlists]"
     },
     "kind": "Tenant",
     "location": "[steps('basics').resourceScope.location.name]"
