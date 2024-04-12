@@ -4133,7 +4133,7 @@
                                         "required": true
                                     },
                                     "infoMessages": [],
-                                    "visible": "[equals(steps('networking').sectionHubSelector.deployHub, 'useExisting')]"
+                                    "visible": "[equals(steps('workloads').networking.sectionHubSelector.deployHub, 'useExisting')]"
                                 }
                             ]
                         }
