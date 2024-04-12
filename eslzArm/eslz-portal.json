@@ -3830,6 +3830,225 @@
                             "constraints": {
                                 "required": true
                             }
+                        },
+                        {
+                            "name": "environmentName",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Environment Name",
+                            "subLabel": "",
+                            "defaultValue": "test",
+                            "toolTip": "Required. The name of the Environment Name (e.g. \"dev\", \"test\", \"prod\", \"preprod\", \"staging\", \"uat\", \"dr\", \"qa\"). Up to 8 characters long.",
+                            "constraints": {
+                                "allowedValues": [
+                                    {
+                                        "label": "dev",
+                                        "value": "dev"
+                                    },
+                                    {
+                                        "label": "dr",
+                                        "value": "dr"
+                                    },
+                                    {
+                                        "label": "preprod",
+                                        "value": "preprod"
+                                    },
+                                    {
+                                        "label": "prod",
+                                        "value": "prod"
+                                    },
+                                    {
+                                        "label": "qa",
+                                        "value": "qa"
+                                    },
+                                    {
+                                        "label": "staging",
+                                        "value": "staging"
+                                    },
+                                    {
+                                        "label": "test",
+                                        "value": "test"
+                                    },
+                                    {
+                                        "label": "uat",
+                                        "value": "uat"
+                                    }
+                                ],
+                                "required": true,
+                                "validations": [
+                                    {
+                                        "isValid": "[or(or(empty(steps('basics').environmentName),and(not(startsWith(steps('basics').environmentName,'[[')),startsWith(steps('basics').environmentName,'['),endsWith(steps('basics').environmentName,']'),greater(indexOf(steps('basics').environmentName,'('),-1),greater(indexOf(steps('basics').environmentName,')'),-1))),lessOrEquals(length(steps('basics').environmentName),8))]",
+                                        "message": "The value must have a length of at most 8."
+                                    }
+                                ]
+                            },
+                            "infoMessages": [],
+                            "visible": "[equals(steps('workloads').workloadlists, 'app-service-accelerator')]"
+                        },
+                        {
+                            "name": "appSvcPlanSection",
+                            "type": "Microsoft.Common.Section",
+                            "label": "App Service Plan settings",
+                            "elements": [
+                                {
+                                    "name": "scenarioSelector",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": true,
+                                    "options": {
+                                        "text": "You can host your web applications in App Service Environment v3 (isolated hosting) or in an App Service Plan (multitenant hosting)",
+                                        "link": {
+                                            "label": "Learn more for App Service Environment v3",
+                                            "uri": "https://learn.microsoft.com/azure/app-service/environment/overview"
+                                        }
+                                    }
+                                },
+                                {
+                                    "name": "deployAseV3",
+                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "visible": true,
+                                    "label": "Deploy Isolated ASEv3?",
+                                    "defaultValue": "No",
+                                    "constraints": {
+                                        "allowedValues": [                                            
+                                            {
+                                                "label": "No",
+                                                "value": false
+                                            },
+                                            {
+                                                "label": "Yes",
+                                                "value": true
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "name": "appSvcPlanSettings",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": true,
+                                    "options": {
+                                        "text": "Select one of the predefined SKUs for your App Service Plan, and the desired underlying OS (Linux or Windows). If you wish to deploy a Zone Redundant App Service, select one of the SKUs with the suffix _AZ.",
+                                        "link": {
+                                            "label": "Learn more for Availability Zones",
+                                            "uri": "https://azure.github.io/AppService/2021/08/25/App-service-support-for-availability-zones.html"
+                                        }
+                                    }
+                                },
+                                {
+                                    "name": "webAppPlanSku",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Web App Plan Sku",
+                                    "subLabel": "",
+                                    "defaultValue": "S1",
+                                    "toolTip": "Defines the name, tier, size, family and capacity of the App Service Plan. Plans ending to _AZ, are deploying at least three instances in three Availability Zones. EP* is only for functions",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "S1",
+                                                "value": "S1"
+                                            },
+                                            {
+                                                "label": "S2",
+                                                "value": "S2"
+                                            },
+                                            {
+                                                "label": "S3",
+                                                "value": "S3"
+                                            },
+                                            {
+                                                "label": "P1V3",
+                                                "value": "P1V3"
+                                            },
+                                            {
+                                                "label": "P2V3",
+                                                "value": "P2V3"
+                                            },
+                                            {
+                                                "label": "P3V3",
+                                                "value": "P3V3"
+                                            },
+                                            {
+                                                "label": "P1V3_AZ",
+                                                "value": "P1V3_AZ"
+                                            },
+                                            {
+                                                "label": "P2V3_AZ",
+                                                "value": "P2V3_AZ"
+                                            },
+                                            {
+                                                "label": "P3V3_AZ",
+                                                "value": "P3V3_AZ"
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, false)]"
+                                },
+                                {
+                                    "name": "webAppPlanSkuAse",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Web App Plan Sku (ASEv3)",
+                                    "subLabel": "",
+                                    "defaultValue": "ASE_I1V2_AZ",
+                                    "toolTip": "Defines the name, tier, size, family and capacity of the App Service Plan. Plans ending to _AZ, are deploying at least three instances in three Availability Zones. EP* is only for functions",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [                                            
+                                            {
+                                                "label": "ASE_I1V2_AZ",
+                                                "value": "ASE_I1V2_AZ"
+                                            },
+                                            {
+                                                "label": "ASE_I2V2_AZ",
+                                                "value": "ASE_I2V2_AZ"
+                                            },
+                                            {
+                                                "label": "ASE_I3V2_AZ",
+                                                "value": "ASE_I3V2_AZ"
+                                            },
+                                            {
+                                                "label": "ASE_I1V2",
+                                                "value": "ASE_I1V2"
+                                            },
+                                            {
+                                                "label": "ASE_I2V2",
+                                                "value": "ASE_I2V2"
+                                            },
+                                            {
+                                                "label": "ASE_I3V2",
+                                                "value": "ASE_I3V2"
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, true)]"
+                                },
+                                {
+                                    "name": "webAppBaseOs",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Web App Base Os",
+                                    "subLabel": "",
+                                    "defaultValue": "Windows",
+                                    "toolTip": "Kind of server OS of the App Service Plan",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Windows",
+                                                "value": "Windows"
+                                            },
+                                            {
+                                                "label": "Linux",
+                                                "value": "Linux"
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                }
+                            ]
                         }
                     ]
                 },
@@ -4044,7 +4263,8 @@
         "auditAppGwWaf": "[steps('landingZones').lzSection.auditAppGwWaf]",
         "enforceAcsb": "[steps('landingZones').lzSection.enforceAcsb]",
         "enableDecommissioned": "[steps('decommissionedSandboxZones').decommSection.enableDecommissioned]",
-        "enableSandbox": "[steps('decommissionedSandboxZones').sandboxSection.enableSandbox]"
+        "enableSandbox": "[steps('decommissionedSandboxZones').sandboxSection.enableSandbox]",
+        "workloads": "[steps('workloads').workloadselection.workloadlists]"
     },
     "kind": "Tenant",
     "location": "[steps('basics').resourceScope.location.name]"
