@@ -4122,6 +4122,17 @@
                                     ]
                                 },
                                 {
+                                    "name": "getHubvnet",
+                                    "type": "Microsoft.Solutions.ArmApiControl",
+                                    "request": {
+                                        "method": "POST",
+                                        "path": "providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
+                                        "body": {
+                                            "query": "Resources | where type =~ 'microsoft.network/virtualnetworks'| project label=tostring(name),description=name, value=id"
+                                        }
+                                    }
+                                },
+                                {
                                     "name": "vnetHubResourceId",
                                     "type": "Microsoft.Common.TextBox",
                                     "label": "Hub Vnet Resource Id",
@@ -4129,7 +4140,7 @@
                                     "defaultValue": "",
                                     "toolTip": "Default is empty. If empty, then a new hub will be created. If given, no new hub will be created and we create the  peering between spoke and and existing hub vnet",
                                     "constraints": {
-                                        "allowedValues": "[steps('basics').getHubvnet.data]",
+                                        "allowedValues": "[steps('workloads').networking.getHubvnet.data]",
                                         "required": true
                                     },
                                     "infoMessages": [],
