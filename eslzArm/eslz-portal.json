@@ -4129,7 +4129,7 @@
                                     "defaultValue": "",
                                     "toolTip": "Default is empty. If empty, then a new hub will be created. If given, no new hub will be created and we create the  peering between spoke and and existing hub vnet",
                                     "constraints": {
-                                        "allowedValues": "[steps('basics').getSubscriptions.data]",
+                                        "allowedValues": "[steps('basics').getHubvnet.data]",
                                         "required": true
                                     },
                                     "infoMessages": [],
