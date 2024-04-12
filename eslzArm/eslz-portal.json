@@ -4264,7 +4264,7 @@
         "enforceAcsb": "[steps('landingZones').lzSection.enforceAcsb]",
         "enableDecommissioned": "[steps('decommissionedSandboxZones').decommSection.enableDecommissioned]",
         "enableSandbox": "[steps('decommissionedSandboxZones').sandboxSection.enableSandbox]",
-        "workloads": "[steps('workloads').workloadlists]"
+        "workloads": "[steps('workloads').workloadselection.workloadlists]"
     },
     "kind": "Tenant",
     "location": "[steps('basics').resourceScope.location.name]"
