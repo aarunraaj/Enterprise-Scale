@@ -4071,18 +4071,6 @@
                                     "label": "Create a new Hub or use an existing one?",
                                     "elements": [
                                         {
-                                            "name": "textHubSelector",
-                                            "type": "Microsoft.Common.TextBlock",
-                                            "visible": true,
-                                            "options": {
-                                                "text": "Do you want to deploy a new Hub (with all the necessary resources, i.e. Virtual Network, Azure Firewall, Azure Bastion etc), or do you prefer use an existing one? The existing hub must be in the same region, and have Azure Firewall, and Azure Bastion deployed in it.",
-                                                "link": {
-                                                    "label": "More info for the Hub resources, at the Architecture Diagram",
-                                                    "uri": "https://github.com/thotheod/appservice-landing-zone-accelerator/tree/main/scenarios/secure-baseline-multitenant#architecture"
-                                                }
-                                            }
-                                        },
-                                        {
                                             "name": "selector",
                                             "type": "Microsoft.Common.DropDown",
                                             "label": "Platform subscription",
