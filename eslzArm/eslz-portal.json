@@ -199,7 +199,7 @@
                                     "multiLine": true,
                                     "visible": true,
                                     "constraints": {
-                                        "allowedValues": "[steps('basics').getSubscriptions.data]",
+                                        "allowedValues": "[steps('basics').getHubvnet.data]",
                                         "required": true
                                     }
                                 }
@@ -4058,36 +4058,6 @@
                                     },
                                     "infoMessages": [],
                                     "visible": true
-                                }
-                            ]
-                        },
-                        {
-                            "name": "networking",
-                            "label": "Network settings",
-                            "elements": [
-                                {
-                                    "name": "sectionHubSelector",
-                                    "type": "Microsoft.Common.Section",
-                                    "label": "Create a new Hub or use an existing one?",
-                                    "elements": [
-                                        {
-                                            "name": "selector",
-                                            "type": "Microsoft.Common.DropDown",
-                                            "label": "Platform subscription",
-                                            "defaultValue": "[parse('[]')]",
-                                            "toolTip": "",
-                                            "multiselect": false,
-                                            "selectAll": false,
-                                            "filter": true,
-                                            "filterPlaceholder": "Filter subscriptions...",
-                                            "multiLine": true,
-                                            "visible": true,
-                                            "constraints": {
-                                                "allowedValues": "[steps('basics').getHubvnet.data]",
-                                                "required": true
-                                            }
-                                        }
-                                    ]
                                 }
                             ]
                         }
