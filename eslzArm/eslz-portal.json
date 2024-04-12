@@ -4614,7 +4614,7 @@
                 "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('networking').subnetSpokeAppSvcAddressSpaceAse , steps('networking').subnetSpokeAppSvcAddressSpace )]",
                 "subnetSpokeDevOpsAddressSpace": "[steps('networking').subnetSpokeDevOpsAddressSpace]",
                 "subnetSpokePrivateEndpointAddressSpace": "[steps('networking').subnetSpokePrivateEndpointAddressSpace]",
-                "vnetHubResourceId": "[steps('networking').hubVnetselection]"
+                "vnetHubResourceId": "[steps('networking').vnetHubResourceId]"
             },
             "kind": "Tenant",
             "location": "[steps('basics').resourceScope.location.name]"
