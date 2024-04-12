@@ -3832,6 +3832,26 @@
                             ]
                         },
                         {
+                            "name": "hubnetwork",
+                            "type": "Microsoft.Common.OptionsGroup",
+                            "label": "Audit the deployment of Private Link Private DNS Zones in the Corp Management Group",
+                            "defaultValue": "Yes (recommended)",
+                            "toolTip": "If 'Yes' is selected an audit policy will be enabled for checking if any Private Link Private DNS Zones are deployed in subscriptions in the Corp Management Group.<br>Uses the policy <a href=\"https://www.azadvertizer.net/azpolicyadvertizer/Audit-PrivateLinkDnsZones.html\">Audit the creation of Private Link Private DNS Zones</a>.",
+                            "constraints": {
+                                "allowedValues": [
+                                    {
+                                        "label": "New",
+                                        "value": "new"
+                                    },
+                                    {
+                                        "label": "Use Existing",
+                                        "value": "useexisting"
+                                    }
+                                ]
+                            },
+                            "visible": true
+                        },
+                        {
                             "name": "networking",
                             "type": "Microsoft.Common.Section",
                             "label": "Single platform subscription",
@@ -3864,7 +3884,7 @@
                                     }
                                 }
                             ],
-                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
+                            "visible": "[and (equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator'), (equals(steps('workloads').hubnetwork, 'useexisting')))]"
                         },
                         {
                             "name": "getLocations",
