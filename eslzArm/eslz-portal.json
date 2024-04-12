@@ -3849,7 +3849,7 @@
                                 {
                                     "name": "vnetHubResourceId",
                                     "type": "Microsoft.Common.DropDown",
-                                    "label": "Platform subscription",
+                                    "label": "Hub Virtual Network",
                                     "defaultValue": "[parse('[]')]",
                                     "toolTip": "",
                                     "multiselect": false,
@@ -3864,7 +3864,7 @@
                                     }
                                 }
                             ],
-                            "visible": "[equals(steps('core').platformSubscription, 'Single')]"
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "getLocations",
