@@ -3832,6 +3832,41 @@
                             ]
                         },
                         {
+                            "name": "networking",
+                            "type": "Microsoft.Common.Section",
+                            "label": "Single platform subscription",
+                            "elements": [
+                                {
+                                    "name": "subWarning",
+                                    "type": "Microsoft.Common.InfoBox",
+                                    "visible": true,
+                                    "options": {
+                                        "icon": "Warning",
+                                        "text": "Use existing HubVnet",
+                                        "uri": "https://docs.microsoft.com/azure/cloud-adoption-framework/ready/enterprise-scale/management-group-and-subscription-organization"
+                                    }
+                                },
+                                {
+                                    "name": "vnetHubResourceId",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Platform subscription",
+                                    "defaultValue": "[parse('[]')]",
+                                    "toolTip": "",
+                                    "multiselect": false,
+                                    "selectAll": false,
+                                    "filter": true,
+                                    "filterPlaceholder": "Filter subscriptions...",
+                                    "multiLine": true,
+                                    "visible": true,
+                                    "constraints": {
+                                        "allowedValues": "[steps('basics').getHubvnet.data]",
+                                        "required": true
+                                    }
+                                }
+                            ],
+                            "visible": "[equals(steps('core').platformSubscription, 'Single')]"
+                        },
+                        {
                             "name": "getLocations",
                             "type": "Microsoft.Solutions.ArmApiControl",
                             "request": {
