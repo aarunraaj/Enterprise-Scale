@@ -4239,7 +4239,7 @@
                                     "type": "Microsoft.Common.DropDown",
                                     "label": "Deploy Jump Box?",
                                     "subLabel": "",
-                                    "defaultValue": "false",
+                                    "defaultValue": "No",
                                     "toolTip": "set to true if you want to deploy a jumpbox/devops VM",
                                     "constraints": {
                                         "required": false,
