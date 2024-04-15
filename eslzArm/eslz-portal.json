@@ -4236,6 +4236,84 @@
                                     "visible": true
                                 }
                             ]
+                        },
+                        {
+                            "name": "jumpBoxSection",
+                            "type": "Microsoft.Common.Section",
+                            "label": "Jump-box Virtual Machine/DevOps agent settings",
+                            "elements": [
+                                {
+                                    "name": "deployJumpHost",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Deploy Jump Box?",
+                                    "subLabel": "",
+                                    "defaultValue": "Yes",
+                                    "toolTip": "set to true if you want to deploy a jumpbox/devops VM",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Yes",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "No",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                },
+                                {
+                                    "name": "windowsVmCredentials",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": "[equals(steps('extra').jumpBoxSection.deployJumpHost, true)]",
+                                    "options": {
+                                        "text": "Give the CredentialsCombo for your windows Jump-box. The VM will be Microsoft Entra ID Joined, so you can use your Microsoft Entra ID credentials to login. The password must contain at least 12 characters, with at least 1 uppercase, 1 lowercase and 1 number.",
+                                        "link": {
+                                            "label": "Learn more for Windows VM Password Policy",
+                                            "uri": "https://learn.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm-"
+                                        }
+                                    }
+                                },
+                                {
+                                    "name": "adminUsername",
+                                    "type": "Microsoft.Compute.UserNameTextBox",
+                                    "label": "Admin Username",
+                                    "defaultValue": "azureuser",
+                                    "toolTip": "",
+                                    "constraints": {
+                                        "required": true,
+                                        "regex": "^[a-z0-9A-Z]{8,15}$",
+                                        "validationMessage": "Only alphanumeric characters are allowed, and the value must be 8-15 characters long."
+                                    },
+                                    "osPlatform": "Windows",
+                                    "visible": "[equals(steps('extra').jumpBoxSection.deployJumpHost, true)]"
+                                },
+                                {
+                                    "name": "vmCredentials",
+                                    "type": "Microsoft.Compute.CredentialsCombo",
+                                    "label": {
+                                        "password": "Password",
+                                        "confirmPassword": "Confirm password"
+                                    },
+                                    "toolTip": {
+                                        "password": ""
+                                    },
+                                    "constraints": {
+                                        "required": true,
+                                        "customPasswordRegex": "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[\\w~@#$%^&*+=|{}:;!.?\\()\\[\\]-]{12,}$",
+                                        "customValidationMessage": "The password must contain at least 12 characters, with at least 1 uppercase, 1 lowercase and 1 number."
+                                    },
+                                    "options": {
+                                        "hideConfirmation": false
+                                    },
+                                    "osPlatform": "Windows",
+                                    "visible": "[equals(steps('extra').jumpBoxSection.deployJumpHost, true)]"
+                                }
+                            ]
                         }
                     ] 
                 },
