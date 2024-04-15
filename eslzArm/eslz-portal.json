@@ -4477,7 +4477,7 @@
                 "environmentName": "[steps('workloads').environmentName]",
                 "vnetHubResourceId": "[steps('workloads').networking.vnetHubResourceId]",
                 "vnetSpokeAddressSpace": "[steps('workloads').networking.sectionSpoke.vnetSpokeAddressSpace]",
-                "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').networking.sectionSpoke.subnetSpokeAppSvcAddressSpaceAse , steps('workloads').networking.subnetSpokeAppSvcAddressSpace )]",
+                "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').networking.sectionSpoke.subnetSpokeAppSvcAddressSpaceAse , steps('workloads').networking.sectionSpoke.subnetSpokeAppSvcAddressSpace )]",
                 "subnetSpokeDevOpsAddressSpace": "[steps('workloads').networking.sectionSpoke.subnetSpokeDevOpsAddressSpace]",
                 "subnetSpokePrivateEndpointAddressSpace": "[steps('workloads').networking.sectionSpoke.subnetSpokePrivateEndpointAddressSpace]"
             },
