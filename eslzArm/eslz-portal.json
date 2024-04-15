@@ -3781,16 +3781,6 @@
                     "bladeTitle": "AlZ - Workload selection",
                     "elements": [
                         {
-                            "name": "infoBox2",
-                            "type": "Microsoft.Common.InfoBox",
-                            "visible": true,
-                            "options": {
-                                "text": "You can optionally select the workloads to be deployed with this ALZ.",
-                                "uri": "https://aka.ms/alz/policies",
-                                "style": "Info"
-                            }
-                        },
-                        {
                             "name": "workloadselection",
                             "type": "Microsoft.Common.Section",
                             "label": "Application Landing zone or workload selection",
@@ -3799,7 +3789,7 @@
                                     "name": "workloadinfo",
                                     "type": "Microsoft.Common.InfoBox",
                                     "options": {
-                                        "text": "You can select the list of following workload to be deployed with this ALZ and the required connectivity gets enabled",
+                                        "text": "You can optionally select & deploy the workloads with this ALZ and the required connectivity gets enabled",
                                         "uri": "https://aka.ms/alz/policies",
                                         "style": "Info"
                                     }
