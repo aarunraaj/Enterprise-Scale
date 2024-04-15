@@ -3858,7 +3858,7 @@
                                 ]
                             },
                             "infoMessages": [],
-                            "visible": "[equals(steps('workload').workloadselection.workloadlists, 'app-service-accelerator')]"
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "environmentName",
@@ -3911,7 +3911,7 @@
                                 ]
                             },
                             "infoMessages": [],
-                            "visible": "[equals(steps('workload').workloadselection.workloadlists, 'app-service-accelerator')]"
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "appSvcPlanSection",
@@ -3933,7 +3933,7 @@
                                 {
                                     "name": "deployAseV3",
                                     "type": "Microsoft.Common.OptionsGroup",
-                                    "visible": "[equals(steps('workload').workloadselection.workloadlists, 'app-service-accelerator')]",
+                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]",
                                     "label": "Deploy Isolated ASEv3?",
                                     "defaultValue": "No",
                                     "constraints": {
@@ -4011,7 +4011,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": "[and (equals(steps('workloads').appSvcPlanSection.deployAseV3, false), (equals(steps('workload').workloadselection.workloadlists, 'app-service-accelerator')))]"
+                                    "visible": "[and (equals(steps('workloads').appSvcPlanSection.deployAseV3, false), (equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')))]"
                                 },
                                 {
                                     "name": "webAppPlanSkuAse",
