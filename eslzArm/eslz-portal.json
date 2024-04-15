@@ -3890,7 +3890,7 @@
                                     "elements": [
                                         {
                                             "name": "textSpoke",
-                                            "type": "Microsoft.Common.InfoBox",
+                                            "type": "Microsoft.Common.TextBlock",
                                             "visible": true,
                                             "options": {
                                                 "text": "You can accept the default address spaces, as shown below, or you can use your own.",
@@ -3899,116 +3899,115 @@
                                                     "uri": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-faq#what-address-ranges-can-i-use-in-my-vnets"
                                                 }
                                             }
+                                        },
+                                        {
+                                            "name": "vnetSpokeAddressSpace",
+                                            "type": "Microsoft.Common.TextBox",
+                                            "label": "Spoke Virtual Network Address Space",
+                                            "subLabel": "",
+                                            "defaultValue": "10.240.0.0/20",
+                                            "toolTip": "CIDR of the SPOKE vnet i.e. 192.168.0.0/24",
+                                            "constraints": {
+                                                "required": true,
+                                                "regex": "",
+                                                "validationMessage": "",
+                                                "validations": [
+                                                    {
+                                                        "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(1[0-9]|2[0-4]))$",
+                                                        "message": "Invalid CIDR range. The address prefix must be in the range [10,24]."
+                                                    }
+                                                ]
+                                            },
+                                            "infoMessages": [],
+                                            "visible": true
+                                        },
+                                        {
+                                            "name": "subnetSpokeAppSvcAddressSpaceAse",
+                                            "type": "Microsoft.Common.TextBox",
+                                            "label": "Spoke Subnet CIDR for Azure App Service",
+                                            "subLabel": "",
+                                            "defaultValue": "10.240.0.0/24",
+                                            "toolTip": "CIDR of the subnet that will hold the app services plan. Use a /24 network space if you wish to deploy ASEv3, otherwise use a /26 for multi tenant app service plan.",
+                                            "constraints": {
+                                                "required": true,
+                                                "regex": "",
+                                                "validationMessage": "",
+                                                "validations": [
+                                                    {
+                                                        "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                        "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                                    }
+                                                ]
+                                            },
+                                            "infoMessages": [],
+                                            "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, true)]"
+                                        },
+                                        {
+                                            "name": "subnetSpokeAppSvcAddressSpace",
+                                            "type": "Microsoft.Common.TextBox",
+                                            "label": "Spoke Subnet CIDR for Azure App Service",
+                                            "subLabel": "",
+                                            "defaultValue": "10.240.0.0/26",
+                                            "toolTip": "CIDR of the subnet that will hold the app services plan. Use a /24 network space if you wish to deploy ASEv3, otherwise use a /26 for multi tenant app service plan.",
+                                            "constraints": {
+                                                "required": true,
+                                                "regex": "",
+                                                "validationMessage": "",
+                                                "validations": [
+                                                    {
+                                                        "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                        "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                                    }
+                                                ]
+                                            },
+                                            "infoMessages": [],
+                                            "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, false)]"
+                                        },
+                                        {
+                                            "name": "subnetSpokeDevOpsAddressSpace",
+                                            "type": "Microsoft.Common.TextBox",
+                                            "label": "Spoke Subnet CIDR for Dev Ops agent (VM)",
+                                            "subLabel": "",
+                                            "defaultValue": "10.240.10.128/26",
+                                            "toolTip": "CIDR of the subnet that will hold devOps agents etc ",
+                                            "constraints": {
+                                                "required": true,
+                                                "regex": "",
+                                                "validationMessage": "",
+                                                "validations": [
+                                                    {
+                                                        "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                        "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                                    }
+                                                ]
+                                            },
+                                            "infoMessages": [],
+                                            "visible": true
+                                        },
+                                        {
+                                            "name": "subnetSpokePrivateEndpointAddressSpace",
+                                            "type": "Microsoft.Common.TextBox",
+                                            "label": "Spoke Subnet CIDR for Azure Private Endpoints",
+                                            "subLabel": "",
+                                            "defaultValue": "10.240.11.0/24",
+                                            "toolTip": "CIDR of the subnet that will hold the private endpoints of the supporting services",
+                                            "constraints": {
+                                                "required": true,
+                                                "regex": "",
+                                                "validationMessage": "",
+                                                "validations": [
+                                                    {
+                                                        "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
+                                                        "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
+                                                    }
+                                                ]
+                                            },
+                                            "infoMessages": [],
+                                            "visible": true
                                         }
                                     ]
-                                },
-                                {
-                                    "name": "vnetSpokeAddressSpace",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Spoke Virtual Network Address Space",
-                                    "subLabel": "",
-                                    "defaultValue": "10.240.0.0/20",
-                                    "toolTip": "CIDR of the SPOKE vnet i.e. 192.168.0.0/24",
-                                    "constraints": {
-                                        "required": true,
-                                        "regex": "",
-                                        "validationMessage": "",
-                                        "validations": [
-                                            {
-                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(1[0-9]|2[0-4]))$",
-                                                "message": "Invalid CIDR range. The address prefix must be in the range [10,24]."
-                                            }
-                                        ]
-                                    },
-                                    "infoMessages": [],
-                                    "visible": true
-                                },
-                                {
-                                    "name": "subnetSpokeAppSvcAddressSpaceAse",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Spoke Subnet CIDR for Azure App Service",
-                                    "subLabel": "",
-                                    "defaultValue": "10.240.0.0/24",
-                                    "toolTip": "CIDR of the subnet that will hold the app services plan. Use a /24 network space if you wish to deploy ASEv3, otherwise use a /26 for multi tenant app service plan.",
-                                    "constraints": {
-                                        "required": true,
-                                        "regex": "",
-                                        "validationMessage": "",
-                                        "validations": [
-                                            {
-                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
-                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
-                                            }
-                                        ]
-                                    },
-                                    "infoMessages": [],
-                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, true)]"
-                                },
-                                {
-                                    "name": "subnetSpokeAppSvcAddressSpace",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Spoke Subnet CIDR for Azure App Service",
-                                    "subLabel": "",
-                                    "defaultValue": "10.240.0.0/26",
-                                    "toolTip": "CIDR of the subnet that will hold the app services plan. Use a /24 network space if you wish to deploy ASEv3, otherwise use a /26 for multi tenant app service plan.",
-                                    "constraints": {
-                                        "required": true,
-                                        "regex": "",
-                                        "validationMessage": "",
-                                        "validations": [
-                                            {
-                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
-                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
-                                            }
-                                        ]
-                                    },
-                                    "infoMessages": [],
-                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, false)]"
-                                },
-                                {
-                                    "name": "subnetSpokeDevOpsAddressSpace",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Spoke Subnet CIDR for Dev Ops agent (VM)",
-                                    "subLabel": "",
-                                    "defaultValue": "10.240.10.128/26",
-                                    "toolTip": "CIDR of the subnet that will hold devOps agents etc ",
-                                    "constraints": {
-                                        "required": true,
-                                        "regex": "",
-                                        "validationMessage": "",
-                                        "validations": [
-                                            {
-                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
-                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
-                                            }
-                                        ]
-                                    },
-                                    "infoMessages": [],
-                                    "visible": true
-                                },
-                                {
-                                    "name": "subnetSpokePrivateEndpointAddressSpace",
-                                    "type": "Microsoft.Common.TextBox",
-                                    "label": "Spoke Subnet CIDR for Azure Private Endpoints",
-                                    "subLabel": "",
-                                    "defaultValue": "10.240.11.0/24",
-                                    "toolTip": "CIDR of the subnet that will hold the private endpoints of the supporting services",
-                                    "constraints": {
-                                        "required": true,
-                                        "regex": "",
-                                        "validationMessage": "",
-                                        "validations": [
-                                            {
-                                                "regex": "^(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(?:\/(2[0-6]))$",
-                                                "message": "Invalid CIDR range. The address prefix must be in the range [20,26]."
-                                            }
-                                        ]
-                                    },
-                                    "infoMessages": [],
-                                    "visible": true
                                 }
-                            ],
-                            "visible": "[and (equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator'), (equals(steps('workloads').hubnetwork, 'useexisting')))]"
+                            ]
                         },
                         {
                             "name": "getLocations",
@@ -4116,7 +4115,7 @@
                                     "label": "Deploy Isolated ASEv3?",
                                     "defaultValue": "No",
                                     "constraints": {
-                                        "allowedValues": [                                            
+                                        "allowedValues": [
                                             {
                                                 "label": "No",
                                                 "value": false
@@ -4201,7 +4200,7 @@
                                     "toolTip": "Defines the name, tier, size, family and capacity of the App Service Plan. Plans ending to _AZ, are deploying at least three instances in three Availability Zones. EP* is only for functions",
                                     "constraints": {
                                         "required": false,
-                                        "allowedValues": [                                            
+                                        "allowedValues": [
                                             {
                                                 "label": "ASE_I1V2_AZ",
                                                 "value": "ASE_I1V2_AZ"
@@ -4474,14 +4473,13 @@
                 "enableSandbox": "[steps('decommissionedSandboxZones').sandboxSection.enableSandbox]",
                 "workloads": "[steps('workloads').workloadselection.workloadlists]",
                 "workloadName": "[steps('workloads').workloadName]",
-                
                 "location": "[steps('workloads').getLocations]",
                 "environmentName": "[steps('workloads').environmentName]",
                 "vnetHubResourceId": "[steps('workloads').networking.vnetHubResourceId]",
-                "vnetSpokeAddressSpace": "[steps('workloads').networking.vnetSpokeAddressSpace]",
-                "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').networking.subnetSpokeAppSvcAddressSpaceAse , steps('workloads').networking.subnetSpokeAppSvcAddressSpace )]",
-                "subnetSpokeDevOpsAddressSpace": "[steps('workloads').networking.subnetSpokeDevOpsAddressSpace]",
-                "subnetSpokePrivateEndpointAddressSpace": "[steps('workloads').networking.subnetSpokePrivateEndpointAddressSpace]"
+                "vnetSpokeAddressSpace": "[steps('workloads').networking.sectionSpoke.vnetSpokeAddressSpace]",
+                "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').networking.sectionSpoke.subnetSpokeAppSvcAddressSpaceAse , steps('workloads').networking.subnetSpokeAppSvcAddressSpace )]",
+                "subnetSpokeDevOpsAddressSpace": "[steps('workloads').networking.sectionSpoke.subnetSpokeDevOpsAddressSpace]",
+                "subnetSpokePrivateEndpointAddressSpace": "[steps('workloads').networking.sectionSpoke.subnetSpokePrivateEndpointAddressSpace]"
             },
             "kind": "Tenant",
             "location": "[steps('basics').resourceScope.location.name]"
