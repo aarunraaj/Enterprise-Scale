@@ -4439,7 +4439,7 @@
                                     "visible": "[equals(steps('workloads').jumpBoxGithubRunnerSection.deployGitHubRunner, true)]"
                                 }
                             ],
-                            "visible": "[equals(steps('extra').jumpBoxSection.deployJumpHost, true)]"
+                            "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
                         },
                         {
                             "name": "jumpBoxAzDoAgentSection",
