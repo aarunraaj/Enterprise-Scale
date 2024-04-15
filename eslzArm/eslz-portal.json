@@ -4077,7 +4077,8 @@
                                     "infoMessages": [],
                                     "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                                 }
-                            ]
+                            ],
+                            "visible":"[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "networking",
