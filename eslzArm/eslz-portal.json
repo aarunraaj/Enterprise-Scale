@@ -4269,7 +4269,7 @@
                                 {
                                     "name": "windowsVmCredentials",
                                     "type": "Microsoft.Common.TextBlock",
-                                    "visible": "[equals(steps('extra').jumpBoxSection.deployJumpHost, true)]",
+                                    "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]",
                                     "options": {
                                         "text": "Give the CredentialsCombo for your windows Jump-box. The VM will be Microsoft Entra ID Joined, so you can use your Microsoft Entra ID credentials to login. The password must contain at least 12 characters, with at least 1 uppercase, 1 lowercase and 1 number.",
                                         "link": {
@@ -4290,7 +4290,7 @@
                                         "validationMessage": "Only alphanumeric characters are allowed, and the value must be 8-15 characters long."
                                     },
                                     "osPlatform": "Windows",
-                                    "visible": "[equals(steps('extra').jumpBoxSection.deployJumpHost, true)]"
+                                    "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
                                 },
                                 {
                                     "name": "vmCredentials",
@@ -4311,7 +4311,7 @@
                                         "hideConfirmation": false
                                     },
                                     "osPlatform": "Windows",
-                                    "visible": "[equals(steps('extra').jumpBoxSection.deployJumpHost, true)]"
+                                    "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
                                 }
                             ]
                         }
