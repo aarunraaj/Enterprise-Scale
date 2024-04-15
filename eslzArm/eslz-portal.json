@@ -4236,7 +4236,8 @@
                                     "infoMessages": [],
                                     "visible": true
                                 }
-                            ]
+                            ],
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "jumpBoxSection",
@@ -4314,7 +4315,8 @@
                                     "osPlatform": "Windows",
                                     "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
                                 }
-                            ]
+                            ],
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "sectionAdditionalTools",
@@ -4642,10 +4644,8 @@
                             "infoMessages": [],
                             "visible": true
                         }
-
-
-
-                    ] 
+                    ],
+                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                 },
                 {
                     "name": "decommissionedSandboxZones",
