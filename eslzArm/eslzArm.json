@@ -4604,6 +4604,35 @@
 
             The following deployment will create the management group structure for ESLZ Lite
         */
+
+{
+            // Creating workload "Azure App Service" as workload Calling App service landing zone accelerator "App-service"
+            "condition": "[and(equals(parameters('enableVmBackupForIdentity'), 'Yes'), not(empty(parameters('identitySubscriptionId'))))]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2020-10-01",
+            "name": "[variables('deploymentNames').azBackupIdentityPolicyDeploymentName]",
+            "scope": "[variables('scopes').identityManagementGroup]",
+            "location": "[deployment().location]",
+            "dependsOn": [
+                "policyCompletion"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "contentVersion": "1.0.0.0",
+                    "uri": "[variables('deploymentUris').azVmBackupPolicyAssignment]"
+                },
+                "parameters": {
+                    "topLevelManagementGroupPrefix": {
+                        "value": "[variables('deterministicRoleAssignmentGuids').backupForIdentity]"
+                    },
+                    "enforcementMode": {
+                        "value": "Default"
+                    }
+                }
+            }
+        }
+
         {
             // Creating the ESLZ Lite management group structure
             "condition": "[not(empty(parameters('singlePlatformSubscriptionId')))]",
