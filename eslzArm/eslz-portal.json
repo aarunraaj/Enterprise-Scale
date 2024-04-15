@@ -3858,7 +3858,7 @@
                                 ]
                             },
                             "infoMessages": [],
-                            "visible": true
+                            "visible": "[equals(steps('workload').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "environmentName",
@@ -3911,7 +3911,7 @@
                                 ]
                             },
                             "infoMessages": [],
-                            "visible": true
+                            "visible": "[equals(steps('workload').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "appSvcPlanSection",
@@ -3933,7 +3933,7 @@
                                 {
                                     "name": "deployAseV3",
                                     "type": "Microsoft.Common.OptionsGroup",
-                                    "visible": true,
+                                    "visible": "[equals(steps('workload').workloadselection.workloadlists, 'app-service-accelerator')]",
                                     "label": "Deploy Isolated ASEv3?",
                                     "defaultValue": "No",
                                     "constraints": {
@@ -4011,7 +4011,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": "[equals(steps('workloads').appSvcPlanSection.deployAseV3, false)]"
+                                    "visible": "[and (equals(steps('workloads').appSvcPlanSection.deployAseV3, false), (equals(steps('workload').workloadselection.workloadlists, 'app-service-accelerator')))]"
                                 },
                                 {
                                     "name": "webAppPlanSkuAse",
