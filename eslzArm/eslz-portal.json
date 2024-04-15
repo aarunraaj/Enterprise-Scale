@@ -4314,6 +4314,338 @@
                                     "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
                                 }
                             ]
+                        },
+                        {
+                            "name": "sectionAdditionalTools",
+                            "type": "Microsoft.Common.Section",
+                            "label": "Post-Deployment installation of additional tools",
+                            "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]",
+                            "elements": [
+                                {
+                                    "name": "txtBlockPostDeploymentInfo",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]",
+                                    "options": {
+                                        "text": "Below you can select if you wish to deploy some additional tools on the jump-box VM, i.e. azure cli, azure developer cli, git, sql server management studio. Have in mind that the more the tools you select, the more time it will take for the deployment to complete."
+                                    }
+                                },
+                                {
+                                    "name": "deployClis",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Install useful CLIs (Azure, AZD, and Git)?",
+                                    "subLabel": "",
+                                    "defaultValue": "No",
+                                    "toolTip": "set to true if you want to install CLIs on the jump-box VM",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Yes",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "No",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
+                                },
+                                {
+                                    "name": "deploySsms",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "install Sql Server Management Studio (SSMS)?",
+                                    "subLabel": "",
+                                    "defaultValue": "No",
+                                    "toolTip": "set to true if you want install Sql Server Management Studio (SSMS) on the jump-box VM",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Yes",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "No",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "jumpBoxGithubRunnerSection",
+                            "type": "Microsoft.Common.Section",
+                            "label": "Jump-box GitHub Runner Settings",
+                            "elements": [
+                                {
+                                    "name": "deployGitHubRunner",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Install Github Runner?",
+                                    "subLabel": "",
+                                    "defaultValue": "No",
+                                    "toolTip": "set to true if you want to deploy selft hosted GitHub Actions runner",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Yes",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "No",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                },
+                                {
+                                    "name": "githubRepositoryUrl",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "GitHub Repository URL",
+                                    "defaultValue": "",
+                                    "toolTip": "The URL of the Github repository to use for the Github Actions Runner. If this parameter is provided, then github_token must also be provided.",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('workloads').jumpBoxGithubRunnerSection.deployGitHubRunner, true)]"
+                                },
+                                {
+                                    "name": "githubToken",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "GitHub Token",
+                                    "defaultValue": "",
+                                    "toolTip": "The GitHub token to use for the Github Actions Runner. If this parameter is provided, then github_repository_url must also be provided.",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('workloads').jumpBoxGithubRunnerSection.deployGitHubRunner, true)]"
+                                }
+                            ],
+                            "visible": "[equals(steps('extra').jumpBoxSection.deployJumpHost, true)]"
+                        },
+                        {
+                            "name": "jumpBoxAzDoAgentSection",
+                            "type": "Microsoft.Common.Section",
+                            "label": "Azure DevOps Self Hosted Agent Settings",
+                            "elements": [
+                                {
+                                    "name": "deployAzDoSelfHostedAgent",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Install Azure DevOps Self Hosted Agent?",
+                                    "subLabel": "",
+                                    "defaultValue": "No",
+                                    "toolTip": "set to true if you want to deploy self hosted agent for Azure DevOps",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "Yes",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "No",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                },
+                                {
+                                    "name": "adoOrganization",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "URL of the Azure DevOps organization",
+                                    "defaultValue": "",
+                                    "toolTip": "The URL of the Azure DevOps organization to use for the Azure DevOps Agent. If this parameter is provided, then ado_token must also be provided",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('workloads').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true)]"
+                                },
+                                {
+                                    "name": "adoToken",
+                                    "type": "Microsoft.Common.TextBox",
+                                    "label": "Azure DevOps Token",
+                                    "defaultValue": "",
+                                    "toolTip": "The Azure DevOps token to use for the Azure DevOps Agent. If this parameter is provided, then ado_organization must also be provided.",
+                                    "constraints": {
+                                        "required": false,
+                                        "regex": "",
+                                        "validationMessage": "",
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": "[equals(steps('workloads').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true)]"
+                                }
+                            ],
+                            "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
+                        },
+                        {
+                            "name": "flags",
+                            "label": "Deployment feature flags",
+                            "elements": [
+                                {
+                                    "name": "enableEgressLockdown",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Enable Egress Lockdown",
+                                    "subLabel": "",
+                                    "defaultValue": "false",
+                                    "toolTip": "set to true if you want to intercept all outbound traffic with azure firewall",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "true",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "false",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                },
+                                {
+                                    "name": "deployRedis",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Deploy Redis",
+                                    "subLabel": "",
+                                    "defaultValue": "false",
+                                    "toolTip": "set to true if you want to deploy a redis cache",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "true",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "false",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                },
+                                {
+                                    "name": "deployAppConfig",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Deploy App Config",
+                                    "subLabel": "",
+                                    "defaultValue": "false",
+                                    "toolTip": "set to true if you want to deploy application configuration",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "true",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "false",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                },
+                                {
+                                    "name": "autoApproveAfdPrivateEndpoint",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Auto Approve Afd Private Endpoint",
+                                    "subLabel": "",
+                                    "defaultValue": "true",
+                                    "toolTip": "set to true if you want to auto approve the Private Endpoint of the AFD",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "true",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "false",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                }, 
+                                {
+                                    "name": "openAiInfoTitle",
+                                    "type": "Microsoft.Common.Section",
+                                    "label": "Azure OpenAI Feature Flag",
+                                    "elements": []
+                                },
+                                {
+                                    "name": "openAiInfo",
+                                    "type": "Microsoft.Common.TextBlock",
+                                    "visible": true,
+                                    "options": {
+                                        "text": "Please be informed that currently Azure OpenAI is in preview and only available in limited regions. Also your azure subscription needs to be allow-listed.",
+                                        "link": {
+                                            "label": "Azure OpenAI Prerequisites",
+                                            "uri": "https://learn.microsoft.com/azure/ai-services/openai/chatgpt-quickstart#prerequisites"
+                                        }
+                                    }
+                                },
+                                {
+                                    "name": "deployOpenAi",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Deploy OpenAI",
+                                    "subLabel": "",
+                                    "defaultValue": "true",
+                                    "toolTip": "set to true if you want to deploy OpenAI",
+                                    "constraints": {
+                                        "required": false,
+                                        "allowedValues": [
+                                            {
+                                                "label": "true",
+                                                "value": true
+                                            },
+                                            {
+                                                "label": "false",
+                                                "value": false
+                                            }
+                                        ],
+                                        "validations": []
+                                    },
+                                    "infoMessages": [],
+                                    "visible": true
+                                }
+                            ]
                         }
                     ] 
                 },
