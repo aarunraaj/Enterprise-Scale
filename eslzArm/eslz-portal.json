@@ -4478,10 +4478,10 @@
                 "location": "[steps('workloads').getLocations]",
                 "environmentName": "[steps('workloads').environmentName]",
                 "vnetHubResourceId": "[steps('workloads').networking.vnetHubResourceId]",
-                "vnetSpokeAddressSpace": "[steps('networking').vnetSpokeAddressSpace]",
-                "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('basics').appSvcPlanSection.deployAseV3, true), steps('networking').subnetSpokeAppSvcAddressSpaceAse , steps('networking').subnetSpokeAppSvcAddressSpace )]",
-                "subnetSpokeDevOpsAddressSpace": "[steps('networking').subnetSpokeDevOpsAddressSpace]",
-                "subnetSpokePrivateEndpointAddressSpace": "[steps('networking').subnetSpokePrivateEndpointAddressSpace]"
+                "vnetSpokeAddressSpace": "[steps('workloads').networking.vnetSpokeAddressSpace]",
+                "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').networking.subnetSpokeAppSvcAddressSpaceAse , steps('workloads').networking.subnetSpokeAppSvcAddressSpace )]",
+                "subnetSpokeDevOpsAddressSpace": "[steps('workloads').networking.subnetSpokeDevOpsAddressSpace]",
+                "subnetSpokePrivateEndpointAddressSpace": "[steps('workloads').networking.subnetSpokePrivateEndpointAddressSpace]"
             },
             "kind": "Tenant",
             "location": "[steps('basics').resourceScope.location.name]"
