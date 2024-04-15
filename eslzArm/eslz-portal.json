@@ -4011,7 +4011,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, false)]"
+                                    "visible": "[equals(steps('workloads').appSvcPlanSection.deployAseV3, false)]"
                                 },
                                 {
                                     "name": "webAppPlanSkuAse",
@@ -4051,7 +4051,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, true)]"
+                                    "visible": "[equals(steps('workloads').appSvcPlanSection.deployAseV3, true)]"
                                 },
                                 {
                                     "name": "webAppBaseOs",
@@ -4188,7 +4188,7 @@
                                                 ]
                                             },
                                             "infoMessages": [],
-                                            "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, true)]"
+                                            "visible": "[equals(steps('workloads').appSvcPlanSection.deployAseV3, true)]"
                                         },
                                         {
                                             "name": "subnetSpokeAppSvcAddressSpace",
@@ -4209,7 +4209,7 @@
                                                 ]
                                             },
                                             "infoMessages": [],
-                                            "visible": "[equals(steps('basics').appSvcPlanSection.deployAseV3, false)]"
+                                            "visible": "[equals(steps('workloads').appSvcPlanSection.deployAseV3, false)]"
                                         },
                                         {
                                             "name": "subnetSpokeDevOpsAddressSpace",
