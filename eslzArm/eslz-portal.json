@@ -4502,10 +4502,34 @@
                                 }
                             ],
                             "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
+                        },
+                        {
+                            "name": "enableEgressLockdown",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Enable Egress Lockdown",
+                            "subLabel": "",
+                            "defaultValue": "false",
+                            "toolTip": "set to true if you want to intercept all outbound traffic with azure firewall",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "true",
+                                        "value": true
+                                    },
+                                    {
+                                        "label": "false",
+                                        "value": false
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
                         }
 
 
-                        
+
                     ] 
                 },
                 {
