@@ -3890,7 +3890,7 @@
                                     "elements": [
                                         {
                                             "name": "textSpoke",
-                                            "type": "Microsoft.Common.TextBlock",
+                                            "type": "Microsoft.Common.InfoBox",
                                             "visible": true,
                                             "options": {
                                                 "text": "You can accept the default address spaces, as shown below, or you can use your own.",
