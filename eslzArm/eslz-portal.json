@@ -4051,7 +4051,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": "[equals(steps('workloads').appSvcPlanSection.deployAseV3, true)]"
+                                    "visible": "[and (equals(steps('workloads').appSvcPlanSection.deployAseV3, true), (equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')))]"
                                 },
                                 {
                                     "name": "webAppBaseOs",
@@ -4075,7 +4075,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": true
+                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                                 }
                             ]
                         },
@@ -4247,7 +4247,7 @@
                                     "type": "Microsoft.Common.DropDown",
                                     "label": "Deploy Jump Box?",
                                     "subLabel": "",
-                                    "defaultValue": "Yes",
+                                    "defaultValue": "No",
                                     "toolTip": "set to true if you want to deploy a jumpbox/devops VM",
                                     "constraints": {
                                         "required": false,
@@ -4264,7 +4264,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": true
+                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                                 },
                                 {
                                     "name": "windowsVmCredentials",
