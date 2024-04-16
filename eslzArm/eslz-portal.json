@@ -5004,7 +5004,7 @@
                 "webAppBaseOs": "[steps('workloads').appSvcPlanSection.webAppBaseOs]",
                 "adminUsername": "[steps('workloads').jumpBoxSection.adminUsername]",
                 "adminPassword": "[if( equals ( steps('workloads').jumpBoxSection.deployJumpHost, true), steps('workloads').jumpBoxSection.vmCredentials.password , 'Pass@word123$' )]",
-                "sqlServerAdministrators": "[steps('SQL').sqlServerDeploySection.sqlServerAdministrators]",
+                "sqlServerAdministrators": "[steps('workloads').sqlServerDeploySection.sqlServerAdministrators]",
                 "sqlAdminLogin": "[steps('workloads').sqlServerDeploySection.sqlAdminLogin]",
                 "sqlAdminPassword": "[steps('workloads').sqlServerDeploySection.sqlAdminPassword]",
                 "deployAzureSql": "[steps('workloads').sqlServerIntroSection.deployAzureSql]",
