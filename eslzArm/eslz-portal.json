@@ -4068,7 +4068,7 @@
                                     "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                                 }
                             ],
-                            "visible":"[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "networking",
@@ -4591,7 +4591,7 @@
                             },
                             "infoMessages": [],
                             "visible": true
-                        }, 
+                        },
                         {
                             "name": "openAiInfoTitle",
                             "type": "Microsoft.Common.Section",
@@ -4777,7 +4777,6 @@
                     ],
                     "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                 },
-                
                 {
                     "name": "decommissionedSandboxZones",
                     "label": "Decommissioned/Sandbox",
@@ -4995,7 +4994,6 @@
                 "location": "[steps('workloads').getLocations]",
                 "environmentName": "[steps('workloads').environmentName]",
                 "vnetHubResourceId": "[steps('workloads').networking.vnetHubResourceId]",
-
                 "vnetSpokeAddressSpace": "[steps('workloads').networking.vnetSpokeAddressSpace]",
                 "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').networking.subnetSpokeAppSvcAddressSpaceAse , steps('workloads').networking.subnetSpokeAppSvcAddressSpace )]",
                 "subnetSpokeDevOpsAddressSpace": "[steps('workloads').networking.subnetSpokeDevOpsAddressSpace]",
@@ -5018,7 +5016,7 @@
                 "githubRepository": "[if( equals ( steps('workloads').jumpBoxGithubRunnerSection.deployGitHubRunner, true), steps('workloads').jumpBoxGithubRunnerSection.githubRepositoryUrl , '' )]",
                 "githubToken": "[if( equals ( steps('workloads').jumpBoxGithubRunnerSection.deployGitHubRunner, true), steps('workloads').jumpBoxGithubRunnerSection.githubToken , '' )]",
                 "adoOrganization": "[if( equals ( steps('workloads').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true), steps('workloads').jumpBoxAzDoAgentSection.adoOrganization , '' )]",
-                "adoToken": "[if( equals ( steps('worklods').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true), steps('workloads').jumpBoxAzDoAgentSection.adoToken , '' )]",
+                "adoToken": "[if( equals ( steps('workloads').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true), steps('workloads').jumpBoxAzDoAgentSection.adoToken , '' )]",
                 "installClis": "[steps('workloads').sectionAdditionalTools.deployClis]",
                 "installSsms": "[steps('workloads').sectionAdditionalTools.deploySsms]"
             },
