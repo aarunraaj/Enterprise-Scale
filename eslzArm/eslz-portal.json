@@ -4999,7 +4999,6 @@
                 "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').networking.subnetSpokeAppSvcAddressSpaceAse , steps('workloads').networking.subnetSpokeAppSvcAddressSpace )]",
                 "subnetSpokeDevOpsAddressSpace": "[steps('workloads').networking.subnetSpokeDevOpsAddressSpace]",
                 "subnetSpokePrivateEndpointAddressSpace": "[steps('workloads').networking.subnetSpokePrivateEndpointAddressSpace]",
-                "numericSuffix": "[steps('extra').numericSuffix]",
                 "deployAseV3": "[steps('workloads').appSvcPlanSection.deployAseV3]",
                 "webAppPlanSku": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').appSvcPlanSection.webAppPlanSkuAse , steps('workloads').appSvcPlanSection.webAppPlanSku )]",
                 "webAppBaseOs": "[steps('workloads').appSvcPlanSection.webAppBaseOs]",
