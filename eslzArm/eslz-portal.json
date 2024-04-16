@@ -4638,6 +4638,146 @@
                     "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                 },
                 {
+                    "name": "sqlServerIntroSection",
+                    "type": "Microsoft.Common.Section",
+                    "label": "Azure SQL Server deployment feature flag",
+                    "elements": [
+                        {
+                            "name": "sqlServerIntro",
+                            "type": "Microsoft.Common.TextBlock",
+                            "visible": true,
+                            "options": {
+                                "text": "Select if you wish to deploy an Azure SQL Server with a default database. This will require more time in the deployment."
+                            }
+                        },
+                        {
+                            "name": "deployAzureSql",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Deploy Azure Sql Server?",
+                            "subLabel": "",
+                            "defaultValue": "No",
+                            "toolTip": "Set to true if you want to deploy a azure SQL server and default database",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "Yes",
+                                        "value": true
+                                    },
+                                    {
+                                        "label": "No",
+                                        "value": false
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        }
+                    ]
+                },
+                {
+                    "name": "sqlServerDeploySection",
+                    "type": "Microsoft.Common.Section",
+                    "label": "SQL Server settings",
+                    "visible": "[equals(steps('workloads').sqlServerIntroSection.deployAzureSql, true)]",
+                    "elements": [
+                        {
+                            "name": "sqlServerAuthentication",
+                            "type": "Microsoft.Common.TextBlock",
+                            "visible": true,
+                            "options": {
+                                "text": "Select the authentication method for the SQL Server administrator. Microsoft Entra for SQL Server administrator authentication is suggested."
+                            }
+                        },
+                        {
+                            "name": "azureSqlAuthentication",
+                            "type": "Microsoft.Common.DropDown",
+                            "label": "Azure Sql Server Authentication",
+                            "subLabel": "",
+                            "defaultValue": "Microsoft Entra",
+                            "toolTip": "Select Microsoft Entra for SQL Server administrator authentication for better security and password-less access. If you select SQL Server local user, you will need to provide a password for the SQL Server administrator.",
+                            "constraints": {
+                                "required": false,
+                                "allowedValues": [
+                                    {
+                                        "label": "Microsoft Entra",
+                                        "value": "AAD"
+                                    },
+                                    {
+                                        "label": "SQL Server local user",
+                                        "value": "local"
+                                    }
+                                ],
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": true
+                        },
+                        {
+                            "name": "sqlServerAdministratorsExplanation",
+                            "type": "Microsoft.Common.TextBlock",
+                            "visible": "[equals(steps('workloads').sqlServerDeploySection.azureSqlAuthentication, 'AAD')]",
+                            "options": {
+                                "text": "Replace ENTRA_SQL_ADMIN_GROUP with Microsoft Entra group where your Azure administrators are members, sid value (xxxx-xxxx-xxxx-xxxx-xxxx) with Microsoft Entra object ID of that group. The current tenantId value is already filled in."
+                            }
+                        },
+                        {
+                            "name": "sqlServerAdministrators",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Sql Server Administrators",
+                            "subLabel": "",
+                            "defaultValue": "[concat('{\n\t\"login\": \"ENTRA_SQL_ADMIN_GROUP\",\n\t\"sid\": \"xxxx-xxxx-xxxx-xxxx-xxxx\",\n\t\"tenantId\": \"', steps('basics').resourceScope.subscription.tenantId, '\"\n}')]",
+                            "multiLine": true,
+                            "toolTip": "Replace ENTRA_SQL_ADMIN_GROUP with Microsoft Entra group where your Azure administrators are members, sid value with Microsoft Entra object ID of that group and tenantId value with Microsoft Entra tenant ID where the group is located",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": "[equals(steps('workloads').sqlServerDeploySection.azureSqlAuthentication, 'AAD')]"
+                        },
+                        {
+                            "name": "sqlAdminLogin",
+                            "type": "Microsoft.Common.TextBox",
+                            "label": "Sql Admin Login",
+                            "subLabel": "",
+                            "defaultValue": "sqluser",
+                            "toolTip": "Conditional. If sqlServerAdministrators is given, this is not required. ",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "infoMessages": [],
+                            "visible": "[equals(steps('workloads').sqlServerDeploySection.azureSqlAuthentication, 'local')]"
+                        },
+                        {
+                            "name": "sqlAdminPassword",
+                            "type": "Microsoft.Common.PasswordBox",
+                            "label": {
+                                "password": "Sql Admin Password",
+                                "confirmPassword": "Confirm password"
+                            },
+                            "defaultValue": "[newGuid()]",
+                            "toolTip": "Conditional. If sqlServerAdministrators is given, this is not required -check password policy: https://learn.microsoft.com/en-us/sql/relational-databases/security/password-policy?view=azuresqldb-current",
+                            "constraints": {
+                                "required": false,
+                                "regex": "",
+                                "validationMessage": "",
+                                "validations": []
+                            },
+                            "options": {
+                                "hideConfirmation": true
+                            },
+                            "visible": "[equals(steps('workloads').sqlServerDeploySection.azureSqlAuthentication, 'local')]"
+                        }
+                    ]
+                },
+                {
                     "name": "decommissionedSandboxZones",
                     "label": "Decommissioned/Sandbox",
                     "subLabel": {
@@ -4853,7 +4993,34 @@
                 "workloadName": "[steps('workloads').workloadName]",
                 "location": "[steps('workloads').getLocations]",
                 "environmentName": "[steps('workloads').environmentName]",
-                "vnetHubResourceId": "[steps('workloads').networking.vnetHubResourceId]"
+                "vnetHubResourceId": "[steps('workloads').networking.vnetHubResourceId]",
+
+                "vnetSpokeAddressSpace": "[steps('workloads').networking.vnetSpokeAddressSpace]",
+                "subnetSpokeAppSvcAddressSpace": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').networking.subnetSpokeAppSvcAddressSpaceAse , steps('workloads').networking.subnetSpokeAppSvcAddressSpace )]",
+                "subnetSpokeDevOpsAddressSpace": "[steps('workloads').networking.subnetSpokeDevOpsAddressSpace]",
+                "subnetSpokePrivateEndpointAddressSpace": "[steps('workloads').networking.subnetSpokePrivateEndpointAddressSpace]",
+                "numericSuffix": "[steps('extra').numericSuffix]",
+                "deployAseV3": "[steps('workloads').appSvcPlanSection.deployAseV3]",
+                "webAppPlanSku": "[if( equals ( steps('workloads').appSvcPlanSection.deployAseV3, true), steps('workloads').appSvcPlanSection.webAppPlanSkuAse , steps('workloads').appSvcPlanSection.webAppPlanSku )]",
+                "webAppBaseOs": "[steps('workloads').appSvcPlanSection.webAppBaseOs]",
+                "adminUsername": "[steps('workloads').jumpBoxSection.adminUsername]",
+                "adminPassword": "[if( equals ( steps('workloads').jumpBoxSection.deployJumpHost, true), steps('workloads').jumpBoxSection.vmCredentials.password , 'Pass@word123$' )]",
+                "sqlServerAdministrators": "[steps('SQL').sqlServerDeploySection.sqlServerAdministrators]",
+                "sqlAdminLogin": "[steps('workloads').sqlServerDeploySection.sqlAdminLogin]",
+                "sqlAdminPassword": "[steps('workloads').sqlServerDeploySection.sqlAdminPassword]",
+                "deployAzureSql": "[steps('workloads').sqlServerIntroSection.deployAzureSql]",
+                "deployJumpHost": "[steps('workloads').jumpBoxSection.deployJumpHost]",
+                "enableEgressLockdown": "[steps('workloads').enableEgressLockdown]",
+                "deployRedis": "[steps('workloads').deployRedis]",
+                "deployAppConfig": "[steps('workloads').deployAppConfig]",
+                "autoApproveAfdPrivateEndpoint": "[steps('workloads').autoApproveAfdPrivateEndpoint]",
+                "deployOpenAi": "[steps('workloads').deployOpenAi]",
+                "githubRepository": "[if( equals ( steps('workloads').jumpBoxGithubRunnerSection.deployGitHubRunner, true), steps('workloads').jumpBoxGithubRunnerSection.githubRepositoryUrl , '' )]",
+                "githubToken": "[if( equals ( steps('workloads').jumpBoxGithubRunnerSection.deployGitHubRunner, true), steps('workloads').jumpBoxGithubRunnerSection.githubToken , '' )]",
+                "adoOrganization": "[if( equals ( steps('workloads').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true), steps('workloads').jumpBoxAzDoAgentSection.adoOrganization , '' )]",
+                "adoToken": "[if( equals ( steps('worklods').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true), steps('workloads').jumpBoxAzDoAgentSection.adoToken , '' )]",
+                "installClis": "[steps('workloads').sectionAdditionalTools.deployClis]",
+                "installSsms": "[steps('workloads').sectionAdditionalTools.deploySsms]"
             },
             "kind": "Tenant",
             "location": "[steps('basics').resourceScope.location.name]"
