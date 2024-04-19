@@ -1363,6 +1363,7 @@
             "resourceRgLocationPolicyAssignment": "[uri(deployment().properties.templateLink.uri, 'managementGroupTemplates/policyAssignments/AUDIT-ResourceRGLocationPolicyAssignment.json')]",
             "VMUnmanagedDiskPolicyAssignment": "[uri(deployment().properties.templateLink.uri, 'managementGroupTemplates/policyAssignments/DENY-VMUnmanagedDiskPolicyAssignment.json')]",
             "diagnosticSettingsforManagementGroups": "[uri(deployment().properties.templateLink.uri, 'managementGroupTemplates/diagSettingsMGs/diagSettingsMGs.json')]",
+            "workloaddeployment":"[uri(deployment().properties.templateLink.uri, 'https://raw.githubusercontent.com/azure/appservice-landing-zone-accelerator/main/scenarios/secure-baseline-multitenant/azure-resource-manager/main.json')]",
             // references to https://github.com/Azure/azure-monitor-baseline-alerts
             "monitorPolicyDefinitions": "[uri(variables('rootUris').monitorRepo, 'patterns/alz/alzArm.json')]",
             "userAssignedIdentityPolicyAssignment": "[uri(deployment().properties.templateLink.uri, 'managementGroupTemplates/policyAssignments/DINE-UserAssignedIdentityVMInsightsAssignment.json')]",
@@ -6067,7 +6068,7 @@
     "type": "Microsoft.Resources/deployments",
     "apiVersion": "2020-10-01",
     "scope": "[variables('scopes').connectivityManagementGroup]",
-    "name": "[variables('deploymentNames').vnetConnectivityHubDeploymentName]",
+    "name": "app-service-workloadDeployment",
     "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').connectivitySubscriptionPlacement)]",
         "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').activityDiagnosticsPolicyDeploymentName)]",
@@ -6082,7 +6083,7 @@
         "mode": "Incremental",
         "templateLink": {
             "contentVersion": "1.0.0.0",
-            "uri": "https://raw.githubusercontent.com/azure/appservice-landing-zone-accelerator/main/scenarios/secure-baseline-multitenant/azure-resource-manager/main.json"
+            "uri": "[variables('deploymentUris').workloaddeployment]"
         },
         "parameters": {
             "workloadname   ": {
