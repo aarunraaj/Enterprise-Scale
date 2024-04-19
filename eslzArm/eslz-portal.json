@@ -81,6 +81,17 @@
                             }
                         },
                         {
+                            "name": "getMG",
+                            "type": "Microsoft.Solutions.ArmApiControl",
+                            "request": {
+                                "method": "POST",
+                                "path": "providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
+                                "body": {
+                                    "query": "ResourceContainers | where type =~ 'microsoft.management/managementgroups' | project mgname = name | join kind=leftouter (resourcecontainers | where type=~ 'microsoft.resources/subscriptions' | extend  mgParent = properties.managementGroupAncestorsChain | project, mgname = tostring(mgParent[0].name)) on mgname"
+                                }
+                            }
+                        },
+                        {
                             "name": "getLocations",
                             "type": "Microsoft.Solutions.ArmApiControl",
                             "request": {
@@ -136,7 +147,7 @@
                             "type": "Microsoft.Common.TextBox",
                             "label": "Resource prefix (Root ID)",
                             "toolTip": "Provide a resource prefix (max 10 characters, unique at tenant-scope). This will be used for the Management Group hierarchy and other resources created as part of this deployment.",
-                            "defaultValue": "",
+                            "defaultValue": "[if(step('basics').getMG), [steps('basics').getMG.data]]",
                             "constraints": {
                                 "required": true,
                                 "regex": "^[a-z0-9A-Z-]{1,10}$",
