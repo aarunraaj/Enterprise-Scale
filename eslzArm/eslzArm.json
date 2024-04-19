@@ -3047,97 +3047,116 @@
         {
             // Creating the virtual network hub (hub and spoke)
             "condition": "[and(not(empty(parameters('connectivitySubscriptionId'))),equals(parameters('enableHub'), 'vhub'))]",
-
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-10-01",
-            "scope": "[variables('scopes').connectivityManagementGroup]",
-            "name": "[variables('deploymentNames').vnetConnectivityHubDeploymentName]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').connectivitySubscriptionPlacement)]",
-                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').activityDiagnosticsPolicyDeploymentName)]",
-                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').resourceDiagnosticsPolicyDeploymentName)]",
-                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').asbPolicyDeploymentName)]",
-                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').ascPolicyDeploymentName)]",
-                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').ascGovPolicyDeploymentName)]",
-                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').ddosDeploymentName)]"
-            ],
-            "location": "[deployment().location]",
+            "name": "emptyStack",
+            "type": "Microsoft.Resources/deploymentStacks",
+            "apiVersion": "2022-08-01-preview",
             "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "contentVersion": "1.0.0.0",
-                    "uri": "[variables('deploymentUris').vnetConnectivityHub]"
+                "actionOnUnmanage": {
+                    "resources": "delete"
                 },
-                "parameters": {
-                    "topLevelManagementGroupPrefix": {
-                        "value": "[parameters('enterpriseScaleCompanyPrefix')]"
-                    },
-                    "ddosPlanResourceId": {
-                        "value": "[variables('platformResourceIds').ddosProtectionResourceId]"
-                    },
-                    "enableHub": {
-                        "value": "[parameters('enableHub')]"
-                    },
-                    "enableAzFw": {
-                        "value": "[parameters('enableAzFw')]"
-                    },
-                    "addressPrefix": {
-                        "value": "[parameters('addressPrefix')]"
-                    },
-                    "enableVpnGw": {
-                        "value": "[parameters('enableVpnGw')]"
-                    },
-                    "enableErGw": {
-                        "value": "[parameters('enableErGw')]"
-                    },
-                    "enableDdoS": {
-                        "value": "[parameters('enableDdoS')]"
-                    },
-                    "location": {
-                        "value": "[parameters('connectivityLocation')]"
-                    },
-                    "connectivitySubscriptionId": {
-                        "value": "[parameters('connectivitySubscriptionId')]"
-                    },
-                    "subnetMaskForAzFw": {
-                        "value": "[parameters('subnetMaskForAzFw')]"
-                    },
-                    "subnetMaskForAzFwMgmt": {
-                        "value": "[parameters('subnetMaskForAzFwMgmt')]"
-                    },
-                    "subnetMaskForGw": {
-                        "value": "[parameters('subnetMaskForGw')]"
-                    },
-                    "firewallSku": {
-                        "value": "[parameters('firewallSku')]"
-                    },
-                    "firewallZones": {
-                        "value": "[parameters('firewallZones')]"
-                    },
-                    "enableAzFwDnsProxy": {
-                        "value": "[parameters('enableAzFwDnsProxy')]"
-                    },
-                    "enableVpnActiveActive": {
-                        "value": "[parameters('enableVpnActiveActive')]"
-                    },
-                    "gwRegionalOrAz": {
-                        "value": "[parameters('gwRegionalOrAz')]"
-                    },
-                    "gwAzSku": {
-                        "value": "[parameters('gwAzSku')]"
-                    },
-                    "gwRegionalSku": {
-                        "value": "[parameters('gwRegionalSku')]"
-                    },
-                    "erRegionalOrAz": {
-                        "value": "[parameters('erRegionalOrAz')]"
-                    },
-                    "erAzSku": {
-                        "value": "[parameters('erAzSku')]"
-                    },
-                    "erRegionalSku": {
-                        "value": "[parameters('erRegionalSku')]"
-                    }
+                "denySettings": {
+                    "mode": "denyWriteAndDelete"
+                },
+                "deploymentScope": "[resourceGroup().id]",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2020-10-01",
+                            "scope": "[variables('scopes').connectivityManagementGroup]",
+                            "name": "[variables('deploymentNames').vnetConnectivityHubDeploymentName]",
+                            "dependsOn": [
+                                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').connectivitySubscriptionPlacement)]",
+                                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').activityDiagnosticsPolicyDeploymentName)]",
+                                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').resourceDiagnosticsPolicyDeploymentName)]",
+                                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').asbPolicyDeploymentName)]",
+                                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').ascPolicyDeploymentName)]",
+                                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').ascGovPolicyDeploymentName)]",
+                                "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').ddosDeploymentName)]"
+                            ],
+                            "location": "[deployment().location]",
+                            "properties": {
+                                "mode": "Incremental",
+                                "templateLink": {
+                                    "contentVersion": "1.0.0.0",
+                                    "uri": "[variables('deploymentUris').vnetConnectivityHub]"
+                                },
+                                "parameters": {
+                                    "topLevelManagementGroupPrefix": {
+                                        "value": "[parameters('enterpriseScaleCompanyPrefix')]"
+                                    },
+                                    "ddosPlanResourceId": {
+                                        "value": "[variables('platformResourceIds').ddosProtectionResourceId]"
+                                    },
+                                    "enableHub": {
+                                        "value": "[parameters('enableHub')]"
+                                    },
+                                    "enableAzFw": {
+                                        "value": "[parameters('enableAzFw')]"
+                                    },
+                                    "addressPrefix": {
+                                        "value": "[parameters('addressPrefix')]"
+                                    },
+                                    "enableVpnGw": {
+                                        "value": "[parameters('enableVpnGw')]"
+                                    },
+                                    "enableErGw": {
+                                        "value": "[parameters('enableErGw')]"
+                                    },
+                                    "enableDdoS": {
+                                        "value": "[parameters('enableDdoS')]"
+                                    },
+                                    "location": {
+                                        "value": "[parameters('connectivityLocation')]"
+                                    },
+                                    "connectivitySubscriptionId": {
+                                        "value": "[parameters('connectivitySubscriptionId')]"
+                                    },
+                                    "subnetMaskForAzFw": {
+                                        "value": "[parameters('subnetMaskForAzFw')]"
+                                    },
+                                    "subnetMaskForAzFwMgmt": {
+                                        "value": "[parameters('subnetMaskForAzFwMgmt')]"
+                                    },
+                                    "subnetMaskForGw": {
+                                        "value": "[parameters('subnetMaskForGw')]"
+                                    },
+                                    "firewallSku": {
+                                        "value": "[parameters('firewallSku')]"
+                                    },
+                                    "firewallZones": {
+                                        "value": "[parameters('firewallZones')]"
+                                    },
+                                    "enableAzFwDnsProxy": {
+                                        "value": "[parameters('enableAzFwDnsProxy')]"
+                                    },
+                                    "enableVpnActiveActive": {
+                                        "value": "[parameters('enableVpnActiveActive')]"
+                                    },
+                                    "gwRegionalOrAz": {
+                                        "value": "[parameters('gwRegionalOrAz')]"
+                                    },
+                                    "gwAzSku": {
+                                        "value": "[parameters('gwAzSku')]"
+                                    },
+                                    "gwRegionalSku": {
+                                        "value": "[parameters('gwRegionalSku')]"
+                                    },
+                                    "erRegionalOrAz": {
+                                        "value": "[parameters('erRegionalOrAz')]"
+                                    },
+                                    "erAzSku": {
+                                        "value": "[parameters('erAzSku')]"
+                                    },
+                                    "erRegionalSku": {
+                                        "value": "[parameters('erRegionalSku')]"
+                                    }
+                                }
+                            }
+                        }
+                    ]
                 }
             }
         },
