@@ -4991,7 +4991,6 @@
                 "enableSandbox": "[steps('decommissionedSandboxZones').sandboxSection.enableSandbox]",
                 "workloads": "[steps('workloads').workloadselection.workloadlists]",
                 "workloadName": "[steps('workloads').workloadName]",
-                "location": "[steps('workloads').getLocations]",
                 "environmentName": "[steps('workloads').environmentName]",
                 "vnetHubResourceId": "[steps('workloads').networking.vnetHubResourceId]",
                 "vnetSpokeAddressSpace": "[steps('workloads').networking.vnetSpokeAddressSpace]",

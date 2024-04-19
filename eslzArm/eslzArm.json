@@ -6090,7 +6090,7 @@
                 "value": "[parameters('workloadName')]"
             },
             "location": {
-                "value": "eastus"
+                "value": "[parameters('location')]"
             },
             "environmentName": {
                 "value": "[parameters('environmentName')]"
