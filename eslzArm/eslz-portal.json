@@ -3822,7 +3822,7 @@
                                 {
                                     "name": "esWorkloadSub",
                                     "type": "Microsoft.Common.DropDown",
-                                    "label": "Workload subscriptions (optional)",
+                                    "label": "Workload subscriptions",
                                     "defaultValue": "[parse('[]')]",
                                     "toolTip": "",
                                     "multiselect": false,
@@ -3830,10 +3830,10 @@
                                     "filter": true,
                                     "filterPlaceholder": "Filter items ...",
                                     "multiLine": true,
-                                    "visible": true,
+                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]",
                                     "constraints": {
                                         "allowedValues": "[steps('basics').getSubscriptions.data]",
-                                        "required": false
+                                        "required": true
                                     }
                                 }
                             ]
@@ -4535,7 +4535,7 @@
                                 "validations": []
                             },
                             "infoMessages": [],
-                            "visible": true
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "deployRedis",
@@ -4559,7 +4559,7 @@
                                 "validations": []
                             },
                             "infoMessages": [],
-                            "visible": true
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "deployAppConfig",
@@ -4583,7 +4583,7 @@
                                 "validations": []
                             },
                             "infoMessages": [],
-                            "visible": true
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "autoApproveAfdPrivateEndpoint",
@@ -4607,18 +4607,19 @@
                                 "validations": []
                             },
                             "infoMessages": [],
-                            "visible": true
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "openAiInfoTitle",
                             "type": "Microsoft.Common.Section",
                             "label": "Azure OpenAI Feature Flag",
-                            "elements": []
+                            "elements": [],
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "openAiInfo",
                             "type": "Microsoft.Common.TextBlock",
-                            "visible": true,
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]",
                             "options": {
                                 "text": "Please be informed that currently Azure OpenAI is in preview and only available in limited regions. Also your azure subscription needs to be allow-listed.",
                                 "link": {
@@ -4649,7 +4650,7 @@
                                 "validations": []
                             },
                             "infoMessages": [],
-                            "visible": true
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "sqlServerIntroSection",
@@ -4659,7 +4660,7 @@
                                 {
                                     "name": "sqlServerIntro",
                                     "type": "Microsoft.Common.TextBlock",
-                                    "visible": true,
+                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]",
                                     "options": {
                                         "text": "Select if you wish to deploy an Azure SQL Server with a default database. This will require more time in the deployment."
                                     }
@@ -4686,7 +4687,7 @@
                                         "validations": []
                                     },
                                     "infoMessages": [],
-                                    "visible": true
+                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                                 }
                             ]
                         },
