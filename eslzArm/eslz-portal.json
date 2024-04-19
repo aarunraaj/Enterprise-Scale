@@ -4123,9 +4123,9 @@
                                 },
                                 {
                                     "name": "vnetHubResourceId",
-                                    "type": "Microsoft.Common.OptionsGroup",
+                                    "type": "Microsoft.Common.DropDown",
                                     "label": "Hub Virtual Network",
-                                    "defaultValue": "[parse('[]')]",
+                                    "defaultValue": "[parse(steps('basics').getHubvnet.[0])]",
                                     "toolTip": "",
                                     "multiselect": false,
                                     "selectAll": false,
