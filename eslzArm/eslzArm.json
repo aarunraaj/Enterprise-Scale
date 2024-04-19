@@ -6067,7 +6067,6 @@
     // Workload deployment "App-Service"   
     "type": "Microsoft.Resources/deployments",
     "apiVersion": "2020-10-01",
-    "scope": "[variables('scopes').platformManagementGroup]",
     "name": "app-service-workloadDeployment",
     "subscriptionId": "[parameters('onlineLzSubscriptionId')]",
     "dependsOn": [
