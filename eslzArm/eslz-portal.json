@@ -4129,8 +4129,8 @@
                                     "toolTip": "",
                                     "multiselect": false,
                                     "selectAll": false,
-                                    "filter": true,
-                                    "filterPlaceholder": "Filter subscriptions...",
+                                    "filter": false,
+                                    "filterPlaceholder": "Filter Hub VNet...",
                                     "multiLine": true,
                                     "visible": true,
                                     "constraints": {
