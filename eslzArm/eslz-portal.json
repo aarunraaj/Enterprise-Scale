@@ -76,7 +76,7 @@
                                 "method": "POST",
                                 "path": "providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
                                 "body": {
-                                    "query": "Resources | where type =~ 'microsoft.network/virtualnetworks'| project label=tostring(name),description=name, value=id"
+                                    "query": "Resources | where type =~ 'microsoft.network/virtualnetworks'| where name contains '-hub' |project label=tostring(name),description=name, value=id"
                                 }
                             }
                         },
@@ -4106,7 +4106,7 @@
                                 },
                                 {
                                     "name": "vnetHubResourceId",
-                                    "type": "Microsoft.Common.DropDown",
+                                    "type": "Microsoft.Common.OptionsGroup",
                                     "label": "Hub Virtual Network",
                                     "defaultValue": "[parse('[]')]",
                                     "toolTip": "",
