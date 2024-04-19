@@ -232,7 +232,7 @@
             "enableProxy": true
         }
     },
-    
+
     "resources": [
         {
              "condition": "[and(equals(parameters('enableHub'), 'vhub'), not(empty(parameters('connectivitySubscriptionId'))))]",
@@ -250,7 +250,6 @@
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
-                    "parameters": {},
                     "resources": [
                         {
                             "type": "Microsoft.Resources/resourceGroups",

@@ -2755,6 +2755,7 @@
         {
             // Creating the virtual network hub (hub and spoke)
             "condition": "[and(not(empty(parameters('connectivitySubscriptionId'))),equals(parameters('enableHub'), 'vhub'))]",
+            
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-10-01",
             "scope": "[variables('scopes').connectivityManagementGroup]",
@@ -2848,6 +2849,8 @@
                 }
             }
         },
+
+
         {
             // Creating the virtual network hub (with NVA)
             "condition": "[and(not(empty(parameters('connectivitySubscriptionId'))),equals(parameters('enableHub'), 'nva'))]",
