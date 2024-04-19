@@ -3842,7 +3842,7 @@
                                 "validationMessage": "",
                                 "validations": [
                                     {
-                                        "isValid": "[or(or(empty(steps('basics').workloadName),and(not(startsWith(steps('basics').workloadName,'[[')),startsWith(steps('basics').workloadName,'['),endsWith(steps('basics').workloadName,']'),greater(indexOf(steps('basics').workloadName,'('),-1),greater(indexOf(steps('basics').workloadName,')'),-1))),lessOrEquals(length(steps('basics').workloadName),10))]",
+                                        "isValid": "[or(or(empty(steps('workloads').workloadName),and(not(startsWith(steps('workloads').workloadName,'[[')),startsWith(steps('workloads').workloadName,'['),endsWith(steps('workloads').workloadName,']'),greater(indexOf(steps('workloads').workloadName,'('),-1),greater(indexOf(steps('workloads').workloadName,')'),-1))),lessOrEquals(length(steps('workloads').workloadName),10))]",
                                         "message": "The value must have a length of at most 10."
                                     }
                                 ]
