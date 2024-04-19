@@ -87,7 +87,7 @@
                                 "method": "POST",
                                 "path": "providers/Microsoft.ResourceGraph/resources?api-version=2021-03-01",
                                 "body": {
-                                    "query": "ResourceContainers | where type =~ 'microsoft.management/managementgroups' | project mgname = name | join kind=leftouter (resourcecontainers | where type=~ 'microsoft.resources/subscriptions' | extend  mgParent = properties.managementGroupAncestorsChain | project, mgname = tostring(mgParent[0].name)) on mgname"
+                                    "query": "ResourceContainers | where type =~ 'microsoft.management/managementgroups' | where name =~ 'wl3' | project mgname = name"
                                 }
                             }
                         },
