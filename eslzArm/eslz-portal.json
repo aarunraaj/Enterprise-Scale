@@ -5035,7 +5035,7 @@
                 "adoToken": "[if( equals ( steps('workloads').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true), steps('workloads').jumpBoxAzDoAgentSection.adoToken , '' )]",
                 "installClis": "[steps('workloads').sectionAdditionalTools.deployClis]",
                 "installSsms": "[steps('workloads').sectionAdditionalTools.deploySsms]",
-                "esWorkloadSub": "[Steps('workloads').workloadselection.esWorkloadSub]"
+                "esWorkloadSub": "[steps('workloads').workloadselection.esWorkloadSub]"
             },
             "kind": "Tenant",
             "location": "[steps('basics').resourceScope.location.name]"
