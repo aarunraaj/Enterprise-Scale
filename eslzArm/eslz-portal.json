@@ -3818,6 +3818,23 @@
                                             }
                                         ]
                                     }
+                                },
+                                {
+                                    "name": "esWorkloadSub",
+                                    "type": "Microsoft.Common.DropDown",
+                                    "label": "Workload subscriptions (optional)",
+                                    "defaultValue": "[parse('[]')]",
+                                    "toolTip": "",
+                                    "multiselect": true,
+                                    "selectAll": true,
+                                    "filter": true,
+                                    "filterPlaceholder": "Filter items ...",
+                                    "multiLine": true,
+                                    "visible": true,
+                                    "constraints": {
+                                        "allowedValues": "[steps('basics').getSubscriptions.data]",
+                                        "required": false
+                                    }
                                 }
                             ]
                         },
@@ -5017,7 +5034,8 @@
                 "adoOrganization": "[if( equals ( steps('workloads').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true), steps('workloads').jumpBoxAzDoAgentSection.adoOrganization , '' )]",
                 "adoToken": "[if( equals ( steps('workloads').jumpBoxAzDoAgentSection.deployAzDoSelfHostedAgent, true), steps('workloads').jumpBoxAzDoAgentSection.adoToken , '' )]",
                 "installClis": "[steps('workloads').sectionAdditionalTools.deployClis]",
-                "installSsms": "[steps('workloads').sectionAdditionalTools.deploySsms]"
+                "installSsms": "[steps('workloads').sectionAdditionalTools.deploySsms]",
+                "esWorkloadSub": "[Steps('workloads').workloadselection.esWorkloadSub[0]]"
             },
             "kind": "Tenant",
             "location": "[steps('basics').resourceScope.location.name]"
