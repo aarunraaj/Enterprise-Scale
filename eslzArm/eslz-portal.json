@@ -144,10 +144,10 @@
                         },
                         {
                             "name": "enterpriseScaleCompanyPrefix",
-                            "type": "Microsoft.Common.DropDown",
+                            "type": "Microsoft.Common.TextBox",
                             "label": "Resource prefix (Root ID)",
                             "toolTip": "Provide a resource prefix (max 10 characters, unique at tenant-scope). This will be used for the Management Group hierarchy and other resources created as part of this deployment.",
-                            "defaultValue": "[if(step('basics').getMG), [(steps('basics').getMG.data)]]",
+                            "defaultValue": "[(steps('basics').getMG.data)]",
                             "constraints": {
                                 "required": true,
                                 "regex": "^[a-z0-9A-Z-]{1,10}$",
