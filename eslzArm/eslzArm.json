@@ -1496,7 +1496,8 @@
             "monitorPolicyLiteDeploymentName": "[take(concat('alz-MonitorPolicyLite', variables('deploymentSuffix')), 64)]",
             "dataCollectionRuleVmInsightsLiteDeploymentName": "[take(concat('alz-DataCollectionRuleVmInsightsLite', variables('deploymentSuffix')), 64)]",
             "dataCollectionRuleChangeTrackingLiteDeploymentName": "[take(concat('alz-DataCollectionRuleChangeTrackingLite', variables('deploymentSuffix')), 64)]",
-            "dataCollectionRuleMdfcDefenderSQLLiteDeploymentName": "[take(concat('alz-DataCollectionRuleDefenderSQLLite', variables('deploymentSuffix')), 64)]"
+            "dataCollectionRuleMdfcDefenderSQLLiteDeploymentName": "[take(concat('alz-DataCollectionRuleDefenderSQLLite', variables('deploymentSuffix')), 64)]",
+            "workloaddeploymentName": "[take(concat('alz-DataCollectionRuleDefenderSQLLite', variables('deploymentSuffix')), 64)]"
         },
         // Declaring deterministic names for Resource Groups that will be created for platform resources
         "platformRgNames": {
@@ -6062,12 +6063,10 @@
         },
 
 {
-    // Workload deployment "App-Service"
-    "condition": "[and(not(empty(parameters('connectivitySubscriptionId'))),equals(parameters('enableHub'), 'vhub'))]",
-    
+    // Workload deployment "App-Service"   
     "type": "Microsoft.Resources/deployments",
     "apiVersion": "2020-10-01",
-    "scope": "[variables('scopes').connectivityManagementGroup]",
+    "scope": "[variables('scopes').platformManagementGroup]",
     "name": "app-service-workloadDeployment",
     "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').connectivitySubscriptionPlacement)]",
