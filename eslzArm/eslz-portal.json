@@ -4667,10 +4667,10 @@
                                         ],
                                         "validations": []
                                     },
-                                    "infoMessages": [],
-                                    "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
+                                    "infoMessages": []
                                 }
-                            ]
+                            ],
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
                         },
                         {
                             "name": "sqlServerDeploySection",
