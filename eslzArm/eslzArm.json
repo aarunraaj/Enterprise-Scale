@@ -6085,7 +6085,7 @@
             "uri": "[variables('deploymentUris').workloaddeployment]"
         },
         "parameters": {
-            "workloadname   ": {
+            "workloadName": {
                 "value": "[parameters('workloadName')]"
             },
             "location": {
