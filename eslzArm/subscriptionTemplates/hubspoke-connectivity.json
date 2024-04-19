@@ -232,6 +232,7 @@
             "enableProxy": true
         }
     },
+
     "resources": [
         {
             // Conditionally deploy virtual network hub
