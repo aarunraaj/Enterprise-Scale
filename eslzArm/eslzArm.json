@@ -3046,7 +3046,6 @@
             "apiVersion": "2020-10-01",
             "scope": "[variables('scopes').connectivityManagementGroup]",
             "name": "[variables('deploymentNames').vnetConnectivityHubDeploymentName]",
-            "subscriptionId": "[parameters('workloadSubscriptionId')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').connectivitySubscriptionPlacement)]",
                 "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').activityDiagnosticsPolicyDeploymentName)]",
