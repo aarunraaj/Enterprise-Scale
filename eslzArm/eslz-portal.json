@@ -4103,25 +4103,6 @@
                                     }
                                 },
                                 {
-                                    "name": "hubnetwork",
-                                    "type": "Microsoft.Common.OptionsGroup",
-                                    "label": "Select existing or new hub vnet",
-                                    "defaultValue": "useexisting (recommended)",
-                                    "constraints": {
-                                        "allowedValues": [
-                                            {
-                                                "label": "New",
-                                                "value": "new"
-                                            },
-                                            {
-                                                "label": "Use Existing",
-                                                "value": "useexisting"
-                                            }
-                                        ]
-                                    },
-                                    "visible": true
-                                },
-                                {
                                     "name": "vnetHubResourceId",
                                     "type": "Microsoft.Common.DropDown",
                                     "label": "Hub Virtual Network",
