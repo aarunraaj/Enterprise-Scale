@@ -4495,6 +4495,13 @@
                             "visible": "[equals(steps('workloads').jumpBoxSection.deployJumpHost, true)]"
                         },
                         {
+                            "name": "DeploymentFeatureFlag",
+                            "type": "Microsoft.Common.Section",
+                            "label": "Deployment Feature Flag",
+                            "elements": [],
+                            "visible": "[equals(steps('workloads').workloadselection.workloadlists, 'app-service-accelerator')]"
+                        },
+                        {
                             "name": "enableEgressLockdown",
                             "type": "Microsoft.Common.DropDown",
                             "label": "Enable Egress Lockdown",
