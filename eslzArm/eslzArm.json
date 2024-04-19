@@ -1497,7 +1497,7 @@
             "dataCollectionRuleVmInsightsLiteDeploymentName": "[take(concat('alz-DataCollectionRuleVmInsightsLite', variables('deploymentSuffix')), 64)]",
             "dataCollectionRuleChangeTrackingLiteDeploymentName": "[take(concat('alz-DataCollectionRuleChangeTrackingLite', variables('deploymentSuffix')), 64)]",
             "dataCollectionRuleMdfcDefenderSQLLiteDeploymentName": "[take(concat('alz-DataCollectionRuleDefenderSQLLite', variables('deploymentSuffix')), 64)]",
-            "workloaddeploymentName": "[take(concat('alz-DataCollectionRuleDefenderSQLLite', variables('deploymentSuffix')), 64)]"
+            "workloaddeploymentName": "[take(concat('app-service', variables('deploymentSuffix')), 64)]"
         },
         // Declaring deterministic names for Resource Groups that will be created for platform resources
         "platformRgNames": {
@@ -3046,6 +3046,7 @@
             "apiVersion": "2020-10-01",
             "scope": "[variables('scopes').connectivityManagementGroup]",
             "name": "[variables('deploymentNames').vnetConnectivityHubDeploymentName]",
+            "subscriptionId": "[parameters('workloadSubscriptionId')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').connectivitySubscriptionPlacement)]",
                 "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').activityDiagnosticsPolicyDeploymentName)]",
@@ -6068,6 +6069,7 @@
     "apiVersion": "2020-10-01",
     "scope": "[variables('scopes').platformManagementGroup]",
     "name": "app-service-workloadDeployment",
+    "subscriptionId": "[parameters('onlineLzSubscriptionId')]",
     "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').connectivitySubscriptionPlacement)]",
         "[resourceId('Microsoft.Resources/deployments', variables('deploymentNames').activityDiagnosticsPolicyDeploymentName)]",
