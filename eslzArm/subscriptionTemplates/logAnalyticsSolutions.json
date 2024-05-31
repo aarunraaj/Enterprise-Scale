@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "rgName": {
@@ -153,12 +153,17 @@
     },
     "resources": [
         {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2018-05-01",
-            "name": "[take(concat('alz-', 'solutions-', guid(deployment().name)), 63)]",
-            "resourceGroup": "[parameters('rgName')]",
+            "name": "emptystack",
+            "type": "Microsoft.Resources/deploymentStacks",
+            "apiVersion": "2022-08-01-preview",
             "properties": {
-                "mode": "Incremental",
+                "actionOnUnmanage": {
+                    "resources": "delete"
+                },
+                "denySettings": {
+                    "mode": "denyWriteAndDelete"
+                },
+                "deploymentScope": "[resourceGroup().id]",
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
